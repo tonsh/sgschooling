@@ -35,3 +35,4 @@ PrimaryRank 是一个分析新加坡小学报名数据的项目，通过分析20
 
 - 尽量小步频繁提交变更
 - 项目使用 pyenv 环境
+- 遵循 python-developer 规范
