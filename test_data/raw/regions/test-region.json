@@ -1,52 +1,42 @@
 {
-  "region_name": "test-region",
+  "name": "test-region",
+  "school_num": 1,
+  "vacancy": 210,
+  "applied": 302,
+  "taken": 210,
   "schools": [
     {
-      "school_name": "测试小学",
+      "name": "测试小学",
       "region": "test-region",
-      "phases": {
-        "phase_1": {
-          "vacancy": 100,
-          "applied": 150,
-          "taken": 100
-        },
-        "phase_2a": {
-          "vacancy": 50,
-          "applied": 75,
-          "taken": 50
-        },
-        "phase_2b": {
-          "vacancy": 30,
-          "applied": 40,
-          "taken": 30
-        },
-        "phase_2c": {
-          "vacancy": 20,
-          "applied": 25,
-          "taken": 20
-        },
-        "phase_2cs": {
-          "vacancy": 10,
-          "applied": 12,
-          "taken": 10
-        }
+      "phase_1": {
+        "vacancy": 100,
+        "applied": 150,
+        "taken": 100
       },
-      "total_vacancy": 210,
-      "total_applied": 302,
-      "total_taken": 210,
-      "overall_success_rate": 0.695364238410596,
+      "phase_2a": {
+        "vacancy": 50,
+        "applied": 75,
+        "taken": 50
+      },
+      "phase_2b": {
+        "vacancy": 30,
+        "applied": 40,
+        "taken": 30
+      },
+      "phase_2c": {
+        "vacancy": 20,
+        "applied": 25,
+        "taken": 20
+      },
+      "phase_2cs": {
+        "vacancy": 10,
+        "applied": 12,
+        "taken": 10
+      },
       "last_updated": "2025-08-19T10:28:29.488080",
       "source_url": "https://test.com"
     }
   ],
-  "summary": {
-    "total_schools": 1,
-    "total_vacancies": 210,
-    "total_applications": 302,
-    "total_taken": 210,
-    "average_success_rate": 0.695364238410596,
-    "vacancy_utilization": 1.0
-  },
   "crawl_timestamp": "2025-08-19T10:28:29.488087",
   "source_url": "https://test.com"
 }

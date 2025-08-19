@@ -80,7 +80,7 @@ async def test_data_storage():
         from datetime import datetime
         
         test_school = SchoolData(
-            school_name="测试小学",
+            name="测试小学",
             region="test-region",
             phase_1=PhaseData(vacancy=100, applied=150, taken=100),
             phase_2a=PhaseData(vacancy=50, applied=75, taken=50),
@@ -91,11 +91,9 @@ async def test_data_storage():
             source_url="https://test.com"
         )
         
-        test_region_data = RegionData(
-            region_name="test-region",
-            schools=[test_school],
-            crawl_timestamp=datetime.now(),
-            source_url="https://test.com"
+        test_region_data = RegionData.from_schools(
+            name="test-region",
+            schools=[test_school]
         )
         
         # 测试保存
@@ -105,7 +103,7 @@ async def test_data_storage():
         # 测试加载
         loaded_data = storage.load_region_data("test-region")
         if loaded_data:
-            print(f"✅ 数据加载成功: {loaded_data.region_name}")
+            print(f"✅ 数据加载成功: {loaded_data.name}")
             print(f"学校数量: {len(loaded_data.schools)}")
             return True
         else:
@@ -151,7 +149,7 @@ async def test_data_validation():
         
         # 创建有效的测试数据
         valid_school = SchoolData(
-            school_name="有效测试小学",
+            name="有效测试小学",
             region="ang-mo-kio",
             phase_1=PhaseData(vacancy=100, applied=150, taken=100),
             phase_2a=PhaseData(vacancy=50, applied=75, taken=50),
@@ -171,7 +169,7 @@ async def test_data_validation():
         
         # 创建无效的测试数据
         invalid_school = SchoolData(
-            school_name="",  # 空名称
+            name="",  # 空名称
             region="test",
             phase_1=PhaseData(vacancy=-10, applied=150, taken=200),  # 负数空缺，录取超过申请
             phase_2a=PhaseData(vacancy=50, applied=75, taken=50),
