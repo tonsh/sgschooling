@@ -34,5 +34,5 @@ PrimaryRank 是一个分析新加坡小学报名数据的项目，通过分析20
 - 你必须用中文编写任何文档。
 - 尽量小步频繁提交变更
 - 项目使用 pyenv 环境
-- 必须遵循 python-developer 规范
+- 必须使用 python-developer agent 进行代码规范
 - 每次有重大改动时生成或更新相应文档
