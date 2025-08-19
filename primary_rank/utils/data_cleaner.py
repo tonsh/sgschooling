@@ -249,7 +249,8 @@ class DataCleaner:
         print(f"   • 清理前: {cleaning_stats['schools_before']} 条目")
         print(f"   • 清理后: {cleaning_stats['schools_after']} 学校")
         print(f"   • 移除条目: {cleaning_stats['schools_removed']}")
-        print(f"   • 清理效率: {cleaning_stats['schools_removed']/cleaning_stats['schools_before']*100:.1f}% 无效条目被移除")
+        removal_rate = cleaning_stats['schools_removed'] / cleaning_stats['schools_before'] * 100
+        print(f"   • 清理效率: {removal_rate:.1f}% 无效条目被移除")
         
         print(f"\n📁 清理后的数据已保存至: {self.cleaned_dir}")
         print("="*60)

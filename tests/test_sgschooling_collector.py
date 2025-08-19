@@ -50,12 +50,12 @@ async def test_single_region_scraping():
             
             if region_data:
                 print(f"✅ 成功采集区域 {test_region}")
-                print(f"学校数量: {len(region_data.schools)}")
+                print(f"学校数量: {region_data.school_num}")
                 
-                if region_data.schools:
-                    sample_school = region_data.schools[0]
-                    print(f"示例学校: {sample_school.school_name}")
-                    print(f"Phase 1 空缺: {sample_school.phase_1.vacancy}")
+                # 注意：RegionData 模型没有 schools 属性，只有统计信息
+                print(f"区域统计 - 学校数: {region_data.school_num}")
+                print(f"区域统计 - 总学位: {region_data.vacancy}")
+                print(f"区域统计 - 总申请: {region_data.applied}")
                 
                 return True, region_data
             else:
@@ -104,7 +104,7 @@ async def test_data_storage():
         loaded_data = storage.load_region_data("test-region")
         if loaded_data:
             print(f"✅ 数据加载成功: {loaded_data.name}")
-            print(f"学校数量: {len(loaded_data.schools)}")
+            print(f"学校数量: {loaded_data.school_num}")
             return True
         else:
             print("❌ 数据加载失败")

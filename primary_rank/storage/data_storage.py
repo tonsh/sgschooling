@@ -47,7 +47,7 @@ class DataStorage:
         Returns:
             保存的文件路径
         """
-        filename = f"{region_data.region_name}.json"
+        filename = f"{region_data.name}.json"
         file_path = self.base_dir / "raw" / "regions" / filename
         
         # 如果文件已存在且需要备份，先备份
@@ -100,10 +100,10 @@ class DataStorage:
         for region_data in regions:
             try:
                 file_path = self.save_region_data(region_data)
-                results[region_data.region_name] = file_path
+                results[region_data.name] = file_path
             except Exception as e:
-                print(f"保存区域数据失败 {region_data.region_name}: {e}")
-                results[region_data.region_name] = f"ERROR: {e}"
+                print(f"保存区域数据失败 {region_data.name}: {e}")
+                results[region_data.name] = f"ERROR: {e}"
         
         return results
     
@@ -190,7 +190,7 @@ class DataStorage:
         
         # 准备CSV数据
         headers = [
-            'Region', 'School Name', 
+            'Region', 'School_Info', 
             'Phase1_Vacancy', 'Phase1_Applied', 'Phase1_Taken',
             'Phase2A_Vacancy', 'Phase2A_Applied', 'Phase2A_Taken',
             'Phase2B_Vacancy', 'Phase2B_Applied', 'Phase2B_Taken',
@@ -205,23 +205,23 @@ class DataStorage:
             writer.writerow(headers)
             
             for region in regions:
-                for school in region.schools:
-                    row = [
-                        school.region,
-                        school.school_name,
-                        school.phase_1.vacancy, school.phase_1.applied, school.phase_1.taken,
-                        school.phase_2a.vacancy, school.phase_2a.applied, school.phase_2a.taken,
-                        school.phase_2b.vacancy, school.phase_2b.applied, school.phase_2b.taken,
-                        school.phase_2c.vacancy, school.phase_2c.applied, school.phase_2c.taken,
-                        school.phase_2cs.vacancy, school.phase_2cs.applied, school.phase_2cs.taken,
-                        school.total_vacancy,
-                        school.total_applied,
-                        school.total_taken,
-                        f"{school.overall_success_rate:.2%}",
-                        school.last_updated.isoformat(),
-                        school.source_url
-                    ]
-                    writer.writerow(row)
+                # RegionData没有schools属性，导出区域级别统计
+                row = [
+                    region.name,
+                    f"{region.school_num} 所学校",
+                    region.vacancy, region.applied, region.taken,
+                    "-", "-", "-",  # Phase 2A
+                    "-", "-", "-",  # Phase 2B  
+                    "-", "-", "-",  # Phase 2C
+                    "-", "-", "-",  # Phase 2CS
+                    region.vacancy,
+                    region.applied,
+                    region.taken,
+                    f"{region.success_rate:.2%}",
+                    "-",  # last_updated
+                    "-"   # source_url
+                ]
+                writer.writerow(row)
         
         return str(file_path)
     
@@ -240,23 +240,22 @@ class DataStorage:
         file_path = self.base_dir / "processed" / filename
         
         # 计算汇总统计
-        total_schools = sum(len(region.schools) for region in regions)
-        total_vacancies = sum(school.total_vacancy for region in regions for school in region.schools)
-        total_applications = sum(school.total_applied for region in regions for school in region.schools)
-        total_taken = sum(school.total_taken for region in regions for school in region.schools)
+        total_schools = sum(region.school_num for region in regions)
+        total_vacancies = sum(region.vacancy for region in regions)
+        total_applications = sum(region.applied for region in regions)
+        total_taken = sum(region.taken for region in regions)
         
         # 按区域统计
         region_stats = []
         for region in regions:
-            region_summary = region.summary
             region_stats.append({
-                'region_name': region.region_name,
-                'school_count': len(region.schools),
-                'total_vacancies': region_summary.total_vacancies,
-                'total_applications': region_summary.total_applications,
-                'total_taken': region_summary.total_taken,
-                'success_rate': region_summary.average_success_rate,
-                'vacancy_utilization': region_summary.vacancy_utilization
+                'region_name': region.name,
+                'school_count': region.school_num,
+                'total_vacancies': region.vacancy,
+                'total_applications': region.applied,
+                'total_taken': region.taken,
+                'success_rate': region.success_rate,
+                'competition_ratio': region.competition_ratio
             })
         
         # 创建报告
@@ -272,8 +271,14 @@ class DataStorage:
                 'overall_vacancy_utilization': total_taken / total_vacancies if total_vacancies > 0 else 0
             },
             'region_statistics': region_stats,
-            'top_popular_schools': self._get_top_schools_by_applications(regions, 10),
-            'top_competitive_schools': self._get_most_competitive_schools(regions, 10)
+            'top_regions_by_applications': sorted(
+                [{'region': r.name, 'applications': r.applied} for r in regions],
+                key=lambda x: x['applications'], reverse=True
+            )[:10],
+            'most_competitive_regions': sorted(
+                [{'region': r.name, 'competition_ratio': r.competition_ratio} for r in regions],
+                key=lambda x: x['competition_ratio'], reverse=True
+            )[:10]
         }
         
         with open(file_path, 'w', encoding='utf-8') as f:
@@ -295,41 +300,15 @@ class DataStorage:
     
     def _get_top_schools_by_applications(self, regions: List[RegionData], limit: int) -> List[Dict]:
         """获取申请人数最多的学校"""
-        all_schools = []
-        for region in regions:
-            for school in region.schools:
-                all_schools.append({
-                    'school_name': school.school_name,
-                    'region': school.region,
-                    'total_applications': school.total_applied,
-                    'total_vacancies': school.total_vacancy,
-                    'success_rate': school.overall_success_rate
-                })
-        
-        # 按申请人数排序
-        sorted_schools = sorted(all_schools, key=lambda x: x['total_applications'], reverse=True)
-        return sorted_schools[:limit]
+        # 注意：RegionData没有schools属性，这个方法需要重新设计
+        # 目前返回空列表，需要在其他地方实现学校级别的统计
+        return []
     
     def _get_most_competitive_schools(self, regions: List[RegionData], limit: int) -> List[Dict]:
         """获取竞争最激烈的学校（申请人数/空缺数比例最高）"""
-        competitive_schools = []
-        
-        for region in regions:
-            for school in region.schools:
-                if school.total_vacancy > 0:
-                    competition_ratio = school.total_applied / school.total_vacancy
-                    competitive_schools.append({
-                        'school_name': school.school_name,
-                        'region': school.region,
-                        'competition_ratio': competition_ratio,
-                        'total_applications': school.total_applied,
-                        'total_vacancies': school.total_vacancy,
-                        'success_rate': school.overall_success_rate
-                    })
-        
-        # 按竞争比例排序
-        sorted_schools = sorted(competitive_schools, key=lambda x: x['competition_ratio'], reverse=True)
-        return sorted_schools[:limit]
+        # 注意：RegionData没有schools属性，这个方法需要重新设计
+        # 目前返回空列表，需要在其他地方实现学校级别的统计
+        return []
     
     def cleanup_old_files(self, days: int = 30) -> None:
         """清理旧文件"""
