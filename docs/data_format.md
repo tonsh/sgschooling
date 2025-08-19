@@ -11,9 +11,8 @@
 ```json
 {
   "name": "Alexandra Primary School",
-  "cn_name": "亚历山德拉小学",
   "region": "alexandra",
-  "vacancy": 180,
+  "vacancy": 128,
   "phase_1": {
     "vacancy": 20,
     "applied": 18,
@@ -38,19 +37,22 @@
     "vacancy": 52,
     "applied": 20,
     "taken": 20
-  }
+  },
+  "last_updated": "2025-08-19T10:30:00Z",
+  "source_url": "https://sgschooling.com/year/2025/primary-school-registration/alexandra/"
 }
 ```
 
 **字段说明：**
 - `name`: 学校英文名称
-- `cn_name`: 学校中文名称
 - `region`: 所在区域
 - `vacancy`: 学校总学位数 (自动计算 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.vacancy)
 - `phase_1/2a/2b/2c/2cs`: 各阶段数据
   - `vacancy`: 该阶段可用名额
   - `applied`: 该阶段申请人数
   - `taken`: 该阶段录取人数
+- `last_updated`: 数据更新时间
+- `source_url`: 数据来源URL
 
 **注意：** `vacancy` 字段在JSON中是可选的，SchoolData模型会根据各阶段数据自动计算总学位数。
 
@@ -59,7 +61,6 @@
 ```json
 {
   "name": "alexandra",
-  "cn_name": "亚历山德拉",
   "school_num": 3,
   "vacancy": 540,
   "applied": 420,
@@ -69,7 +70,6 @@
 
 **字段说明：**
 - `name`: 区域英文名称
-- `cn_name`: 区域中文名称
 - `school_num`: 该区域学校数量
 - `vacancy`: 该区域所有学校的总学位数量
 - `applied`: 该区域所有学校的总报名数量
@@ -82,13 +82,12 @@
 ```
 data/
 ├── raw/
-│   ├── regions/
-│   │   ├── alexandra.json          # 单个区域数据
-│   │   ├── ang-mo-kio.json        # 单个区域数据
-│   │   └── ...                    # 其他区域数据
-│   └── summary/
-│       ├── all_schools.json       # 所有学校数据汇总
-│       └── all_regions.json       # 所有区域数据汇总
+│   └── regions/
+│       ├── alexandra.json          # 单个区域数据
+│       ├── ang-mo-kio.json        # 单个区域数据
+│       └── ...                    # 其他区域数据
+└── logs/
+    └── *.json                      # 爬虫日志文件
 ```
 
 ### 区域文件格式 (例: alexandra.json)
@@ -144,59 +143,6 @@ data/
 }
 ```
 
-### 全量汇总文件格式 (all_schools.json)
-
-```json
-{
-  "schools": [
-    {
-      "name": "Alexandra Primary School",
-      "cn_name": "亚历山德拉小学",
-      "region": "alexandra",
-      "vacancy": 180,
-      "phase_1": { "vacancy": 20, "applied": 18, "taken": 18 },
-      "phase_2a": { "vacancy": 30, "applied": 45, "taken": 30 },
-      "phase_2b": { "vacancy": 25, "applied": 40, "taken": 25 },
-      "phase_2c": { "vacancy": 50, "applied": 35, "taken": 35 },
-      "phase_2cs": { "vacancy": 52, "applied": 20, "taken": 20 }
-    }
-  ],
-  "metadata": {
-    "total_schools": 150,
-    "total_vacancy": 27000,
-    "total_applied": 35000,
-    "total_taken": 25000,
-    "crawl_time": "2025-01-15T10:30:00Z",
-    "data_version": "1.0"
-  }
-}
-```
-
-### 全量区域汇总文件格式 (all_regions.json)
-
-```json
-{
-  "regions": [
-    {
-      "name": "alexandra",
-      "cn_name": "亚历山德拉",
-      "school_num": 3,
-      "vacancy": 540,
-      "applied": 420,
-      "taken": 385
-    }
-  ],
-  "metadata": {
-    "total_regions": 26,
-    "total_schools": 150,
-    "total_vacancy": 27000,
-    "total_applied": 35000,
-    "total_taken": 25000,
-    "crawl_time": "2025-01-15T10:30:00Z",
-    "data_version": "1.0"
-  }
-}
-```
 
 ## 数据验证规则
 
@@ -237,7 +183,10 @@ with open('data/raw/regions/alexandra.json', 'r') as f:
 
 # 验证数据
 for school in schools:
-    if not school.validate_vacancy():
+    expected_vacancy = (school.phase_1.taken + school.phase_2a.taken + 
+                       school.phase_2b.taken + school.phase_2c.taken + 
+                       school.phase_2cs.vacancy)
+    if school.vacancy != expected_vacancy:
         print(f"警告：{school.name} 的 vacancy 计算不正确")
 ```
 
@@ -250,11 +199,11 @@ import json
 # 加载区域数据
 with open('data/raw/regions/alexandra.json', 'r') as f:
     data = json.load(f)
-    region = RegionData.from_dict(data['region'])
+    region = RegionData.from_dict(data)
 
-print(f"区域：{region.cn_name}")
+print(f"区域：{region.name}")
 print(f"学校数量：{region.school_num}")
-print(f"竞争比例：{region.competition_ratio:.2f}")
+print(f"竞争比例：{region.applied/region.vacancy:.2f}")
 ```
 
 ## 注意事项
