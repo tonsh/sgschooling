@@ -4,22 +4,22 @@
 """
 
 import json
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 
 class SGPrimaryDataProcessor:
     """新加坡小学数据处理器"""
-    
+
     def __init__(self):
         pass
-        
+
     def load_raw_data(self, filename: str) -> List[Dict]:
         """
         加载原始数据
-        
+
         Args:
             filename: 数据文件名
-            
+
         Returns:
             原始数据列表
         """
@@ -29,39 +29,39 @@ class SGPrimaryDataProcessor:
         except FileNotFoundError:
             print(f"文件 data/{filename} 不存在")
             return []
-            
+
     def clean_data(self, raw_data: List[Dict]) -> List[Dict]:
         """
         清洗数据
-        
+
         Args:
             raw_data: 原始数据
-            
+
         Returns:
             清洗后的数据
         """
         # TODO: 实现数据清洗逻辑
         print("开始清洗数据...")
         return raw_data
-        
+
     def process_data(self, clean_data: List[Dict]) -> Dict[str, Any]:
         """
         处理数据，计算统计指标
-        
+
         Args:
             clean_data: 清洗后的数据
-            
+
         Returns:
             处理后的数据统计
         """
         # TODO: 实现数据处理逻辑
         print("开始处理数据...")
         return {}
-        
+
     def save_processed_data(self, data: Dict[str, Any], filename: str) -> None:
         """
         保存处理后的数据
-        
+
         Args:
             data: 处理后的数据
             filename: 保存的文件名

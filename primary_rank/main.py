@@ -13,13 +13,13 @@ def main():
     print("=" * 50)
     print("PrimaryRank - 新加坡小学排名分析系统")
     print("=" * 50)
-    
+
     # 第一步：数据采集
     print("\n第一步：数据采集")
     collector = SGPrimaryDataCollector()
     raw_data = collector.collect_school_data(2025)
     collector.save_raw_data(raw_data, "primary_schools_2025.json")
-    
+
     # 第二步：数据处理
     print("\n第二步：数据处理")
     processor = SGPrimaryDataProcessor()
@@ -27,7 +27,7 @@ def main():
     clean_data = processor.clean_data(raw_data)
     processed_data = processor.process_data(clean_data)
     processor.save_processed_data(processed_data, "processed_data_2025.json")
-    
+
     # 第三步：排名计算
     print("\n第三步：排名计算")
     calculator = SGPrimaryRankingCalculator()
@@ -35,7 +35,7 @@ def main():
     school_ranking = calculator.calculate_school_ranking(data)
     region_ranking = calculator.calculate_region_ranking(data)
     calculator.save_rankings(school_ranking, region_ranking)
-    
+
     print("\n分析完成！")
     print("结果文件：")
     print("- data/school_ranking_2025.json (学校排名)")
