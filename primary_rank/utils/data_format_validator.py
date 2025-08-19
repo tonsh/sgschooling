@@ -274,7 +274,9 @@ class DataFormatValidator:
 def validate_sample_data():
     """验证示例数据"""
     validator = DataFormatValidator()
-    result = validator.validate_json_file("data/sample_data.json")
+    # 使用实际数据文件代替示例文件
+    sample_file = "data/raw/regions/ang-mo-kio.json"
+    result = validator.validate_json_file(sample_file)
     
     print("=== 数据格式验证结果 ===")
     print(f"验证通过: {'✅' if result['is_valid'] else '❌'}")
@@ -294,7 +296,7 @@ def validate_sample_data():
     # 尝试加载为模型
     if result['is_valid']:
         print("\n=== 数据模型加载测试 ===")
-        region, schools = validator.validate_and_load_models("data/sample_data.json")
+        region, schools = validator.validate_and_load_models(sample_file)
         
         if region and schools:
             print(f"✅ 成功加载区域数据: {region.cn_name}")

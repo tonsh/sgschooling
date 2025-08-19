@@ -39,13 +39,11 @@ class SchoolData:
 
     结构说明：
     - name: 学校英文名称
-    - cn_name: 学校中文名称
     - region: 所在区域
     - vacancy: 学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.vacancy (自动计算)
     - Phase1/2A/2B/2C/2Cs: 各阶段数据(Vacancy, Applied, Taken)
     """
     name: str
-    cn_name: str
     region: str
     phase_1: PhaseData
     phase_2a: PhaseData
@@ -80,7 +78,6 @@ class SchoolData:
         """转换为字典格式"""
         return {
             "name": self.name,
-            "cn_name": self.cn_name,
             "region": self.region,
             "vacancy": self.vacancy,
             "phase_1": self.phase_1.to_dict(),
@@ -95,7 +92,6 @@ class SchoolData:
         """从字典创建对象"""
         return cls(
             name=data["name"],
-            cn_name=data["cn_name"],
             region=data["region"],
             phase_1=PhaseData.from_dict(data.get("phase_1", {})),
             phase_2a=PhaseData.from_dict(data.get("phase_2a", {})),

@@ -15,14 +15,12 @@ class RegionData:
     
     结构说明：
     - name: 区域英文名称
-    - cn_name: 区域中文名称  
     - school_num: 该区域学校数量
     - vacancy: 该区域所有学校的总学位数量
     - applied: 该区域所有学校的总报名数量
     - taken: 该区域所有学校的总录取数量
     """
     name: str
-    cn_name: str
     school_num: int
     vacancy: int
     applied: int
@@ -46,7 +44,6 @@ class RegionData:
         """转换为字典格式"""
         return {
             "name": self.name,
-            "cn_name": self.cn_name,
             "school_num": self.school_num,
             "vacancy": self.vacancy,
             "applied": self.applied,
@@ -58,7 +55,6 @@ class RegionData:
         """从字典创建对象"""
         return cls(
             name=data["name"],
-            cn_name=data["cn_name"],
             school_num=data["school_num"],
             vacancy=data["vacancy"],
             applied=data["applied"],
@@ -66,11 +62,10 @@ class RegionData:
         )
     
     @classmethod
-    def from_schools(cls, name: str, cn_name: str, schools: List[SchoolData]) -> 'RegionData':
+    def from_schools(cls, name: str, schools: List[SchoolData]) -> 'RegionData':
         """从学校列表创建区域数据"""
         return cls(
             name=name,
-            cn_name=cn_name,
             school_num=len(schools),
             vacancy=sum(school.vacancy for school in schools),
             applied=sum(school.total_applied for school in schools),
