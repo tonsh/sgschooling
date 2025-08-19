@@ -4,7 +4,10 @@
       "Bash(source:*)",
       "Bash(flake8:*)",
       "Bash(python:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npm install:*)",
+      "Bash(playwright install:*)",
+      "Bash(pip install:*)"
     ],
     "deny": []
   }

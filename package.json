@@ -1,0 +1,14 @@
+{
+  "name": "primary-rank-mcp",
+  "version": "1.0.0",
+  "description": "MCP configuration for PrimaryRank project",
+  "dependencies": {
+    "@executeautomation/playwright-mcp-server": "^1.0.0"
+  },
+  "scripts": {
+    "mcp-server": "npx @executeautomation/playwright-mcp-server"
+  },
+  "keywords": ["mcp", "playwright", "browser-automation", "singapore", "education"],
+  "author": "PrimaryRank Team",
+  "license": "MIT"
+}
