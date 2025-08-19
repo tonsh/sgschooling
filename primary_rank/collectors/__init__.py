@@ -4,11 +4,9 @@
 """
 
 from .sgschooling_collector import SGSchoolingCollector
-from .region_parser import RegionParser
 from .data_validator import DataValidator
 
 __all__ = [
     'SGSchoolingCollector',
-    'RegionParser', 
     'DataValidator'
 ]

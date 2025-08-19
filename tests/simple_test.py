@@ -24,8 +24,8 @@ async def simple_page_test():
             title = await page.title()
             print(f"页面标题: {title}")
             
-            # 截图保存
-            await page.screenshot(path="sgschooling_page.png")
+            # 截图保存（如果需要）
+            # await page.screenshot(path="sgschooling_page.png")
             print("页面截图已保存为 sgschooling_page.png")
             
             # 查找常见的页面元素

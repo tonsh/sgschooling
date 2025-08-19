@@ -3,9 +3,9 @@ PrimaryRank 主程序
 新加坡小学排名分析系统主入口
 """
 
-from data_collector import SGPrimaryDataCollector
-from data_processor import SGPrimaryDataProcessor
-from ranking_calculator import SGPrimaryRankingCalculator
+from .data_collector import SGPrimaryDataCollector
+from .data_processor import SGPrimaryDataProcessor
+from .ranking_calculator import SGPrimaryRankingCalculator
 
 
 def main():
