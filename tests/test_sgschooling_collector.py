@@ -72,7 +72,7 @@ async def test_data_storage():
     print("\n💾 测试数据存储功能...")
     
     try:
-        storage = DataStorage("test_data")
+        storage = DataStorage("tests/test_data")
         
         # 创建测试数据
         from primary_rank.models.school_data import SchoolData, PhaseData
@@ -120,7 +120,7 @@ async def test_full_collector():
     print("\n🚀 测试完整数据采集器...")
     
     try:
-        collector = SGPrimaryDataCollector("test_data")
+        collector = SGPrimaryDataCollector("tests/test_data")
         
         # 测试数据摘要（应该返回None，因为还没有数据）
         summary = collector.get_latest_data_summary()
