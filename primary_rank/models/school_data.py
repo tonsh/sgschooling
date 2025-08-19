@@ -4,7 +4,7 @@
 """
 
 from dataclasses import dataclass
-from datetime import datetime
+from typing import Dict, Any
 
 
 @dataclass
@@ -13,114 +13,93 @@ class PhaseData:
     vacancy: int = 0
     applied: int = 0
     taken: int = 0
-    
-    @property
-    def available(self) -> int:
-        """剩余空缺"""
-        return max(0, self.vacancy - self.taken)
-    
-    @property 
-    def success_rate(self) -> float:
-        """成功率"""
-        if self.applied == 0:
-            return 0.0
-        return self.taken / self.applied
+
+    def to_dict(self) -> Dict[str, int]:
+        """转换为字典"""
+        return {
+            "vacancy": self.vacancy,
+            "applied": self.applied,
+            "taken": self.taken
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, int]) -> 'PhaseData':
+        """从字典创建对象"""
+        return cls(
+            vacancy=data.get("vacancy", 0),
+            applied=data.get("applied", 0),
+            taken=data.get("taken", 0)
+        )
 
 
 @dataclass
 class SchoolData:
-    """学校数据模型"""
-    school_name: str
+    """
+    学校数据模型
+
+    结构说明：
+    - name: 学校英文名称
+    - cn_name: 学校中文名称
+    - region: 所在区域
+    - vacancy: 学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.vacancy (自动计算)
+    - Phase1/2A/2B/2C/2Cs: 各阶段数据(Vacancy, Applied, Taken)
+    """
+    name: str
+    cn_name: str
     region: str
     phase_1: PhaseData
     phase_2a: PhaseData
     phase_2b: PhaseData
     phase_2c: PhaseData
     phase_2cs: PhaseData
-    last_updated: datetime
-    source_url: str
-    
+
     @property
-    def total_vacancy(self) -> int:
-        """总空缺数"""
-        return (self.phase_1.vacancy + self.phase_2a.vacancy + 
-                self.phase_2b.vacancy + self.phase_2c.vacancy + 
-                self.phase_2cs.vacancy)
-    
+    def vacancy(self) -> int:
+        """学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.vacancy"""
+        return (
+            self.phase_1.taken + self.phase_2a.taken +
+            self.phase_2b.taken + self.phase_2c.taken +
+            self.phase_2cs.vacancy
+        )
+
     @property
     def total_applied(self) -> int:
         """总申请数"""
         return (self.phase_1.applied + self.phase_2a.applied +
-                self.phase_2b.applied + self.phase_2c.applied + 
+                self.phase_2b.applied + self.phase_2c.applied +
                 self.phase_2cs.applied)
-    
+
     @property
     def total_taken(self) -> int:
         """总录取数"""
         return (self.phase_1.taken + self.phase_2a.taken +
-                self.phase_2b.taken + self.phase_2c.taken + 
+                self.phase_2b.taken + self.phase_2c.taken +
                 self.phase_2cs.taken)
-    
-    @property
-    def overall_success_rate(self) -> float:
-        """整体成功率"""
-        if self.total_applied == 0:
-            return 0.0
-        return self.total_taken / self.total_applied
-    
-    def to_dict(self) -> dict:
+
+    def to_dict(self) -> Dict[str, Any]:
         """转换为字典格式"""
         return {
-            "school_name": self.school_name,
+            "name": self.name,
+            "cn_name": self.cn_name,
             "region": self.region,
-            "phases": {
-                "phase_1": {
-                    "vacancy": self.phase_1.vacancy,
-                    "applied": self.phase_1.applied,
-                    "taken": self.phase_1.taken
-                },
-                "phase_2a": {
-                    "vacancy": self.phase_2a.vacancy,
-                    "applied": self.phase_2a.applied,
-                    "taken": self.phase_2a.taken
-                },
-                "phase_2b": {
-                    "vacancy": self.phase_2b.vacancy,
-                    "applied": self.phase_2b.applied,
-                    "taken": self.phase_2b.taken
-                },
-                "phase_2c": {
-                    "vacancy": self.phase_2c.vacancy,
-                    "applied": self.phase_2c.applied,
-                    "taken": self.phase_2c.taken
-                },
-                "phase_2cs": {
-                    "vacancy": self.phase_2cs.vacancy,
-                    "applied": self.phase_2cs.applied,
-                    "taken": self.phase_2cs.taken
-                }
-            },
-            "total_vacancy": self.total_vacancy,
-            "total_applied": self.total_applied,
-            "total_taken": self.total_taken,
-            "overall_success_rate": self.overall_success_rate,
-            "last_updated": self.last_updated.isoformat(),
-            "source_url": self.source_url
+            "vacancy": self.vacancy,
+            "phase_1": self.phase_1.to_dict(),
+            "phase_2a": self.phase_2a.to_dict(),
+            "phase_2b": self.phase_2b.to_dict(),
+            "phase_2c": self.phase_2c.to_dict(),
+            "phase_2cs": self.phase_2cs.to_dict()
         }
-    
+
     @classmethod
-    def from_dict(cls, data: dict) -> 'SchoolData':
+    def from_dict(cls, data: Dict[str, Any]) -> 'SchoolData':
         """从字典创建对象"""
-        phases = data.get("phases", {})
-        
         return cls(
-            school_name=data["school_name"],
+            name=data["name"],
+            cn_name=data["cn_name"],
             region=data["region"],
-            phase_1=PhaseData(**phases.get("phase_1", {})),
-            phase_2a=PhaseData(**phases.get("phase_2a", {})),
-            phase_2b=PhaseData(**phases.get("phase_2b", {})),
-            phase_2c=PhaseData(**phases.get("phase_2c", {})),
-            phase_2cs=PhaseData(**phases.get("phase_2cs", {})),
-            last_updated=datetime.fromisoformat(data["last_updated"]),
-            source_url=data["source_url"]
+            phase_1=PhaseData.from_dict(data.get("phase_1", {})),
+            phase_2a=PhaseData.from_dict(data.get("phase_2a", {})),
+            phase_2b=PhaseData.from_dict(data.get("phase_2b", {})),
+            phase_2c=PhaseData.from_dict(data.get("phase_2c", {})),
+            phase_2cs=PhaseData.from_dict(data.get("phase_2cs", {}))
         )

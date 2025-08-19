@@ -2,11 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 重要说明
-
-- 你必须用中文在聊天中回复。
-- 你必须用中文编写任何文档。
-
 ## 项目概述
 
 PrimaryRank 是一个分析新加坡小学报名数据的项目，通过分析2025年新加坡小学报名数据，统计新加坡所有政府小学及区域的热度排名，为家长择校提供有价值的参数依据。
@@ -33,6 +28,11 @@ PrimaryRank 是一个分析新加坡小学报名数据的项目，通过分析20
 4. 考虑数据更新的时效性
 5. 遵守数据使用相关法规
 
+## 重要说明
+
+- 你必须用中文在聊天中回复。
+- 你必须用中文编写任何文档。
 - 尽量小步频繁提交变更
 - 项目使用 pyenv 环境
-- 遵循 python-developer 规范
+- 必须遵循 python-developer 规范
+- 每次有重大改动时生成或更新相应文档

@@ -85,7 +85,7 @@ class SGSchoolingCollector:
         
         try:
             # 访问主页面
-            await self.page.goto(main_url, wait_until="networkidle")
+            await self.page.goto(main_url, wait_until="domcontentloaded")
             
             # 等待页面加载完成
             await self.page.wait_for_load_state("domcontentloaded")
@@ -162,7 +162,7 @@ class SGSchoolingCollector:
         
         try:
             # 访问区域页面
-            await self.page.goto(region_url, wait_until="networkidle")
+            await self.page.goto(region_url, wait_until="domcontentloaded")
             
             # 等待表格加载
             await self.page.wait_for_selector("table", timeout=10000)
@@ -170,16 +170,15 @@ class SGSchoolingCollector:
             # 提取学校数据
             schools = await self._extract_schools_from_table(region, region_url)
             
-            # 创建区域数据对象
-            region_data = RegionData(
-                region_name=region,
-                schools=schools,
-                crawl_timestamp=datetime.now(),
-                source_url=region_url
+            # 创建区域数据对象 - 使用from_schools方法
+            region_data = RegionData.from_schools(
+                name=region,
+                cn_name="",  # 暂时为空
+                schools=schools
             )
             
             print(f"区域 {region} 采集完成，共 {len(schools)} 所学校")
-            return region_data
+            return region_data, schools
             
         except Exception as e:
             print(f"采集区域 {region} 失败: {e}")
@@ -225,15 +224,14 @@ class SGSchoolingCollector:
                     
                     # 创建学校数据对象
                     school = SchoolData(
-                        school_name=school_name,
+                        name=school_name,
+                        cn_name="",  # 暂时为空，后续可以添加翻译功能
                         region=region,
                         phase_1=phases_data[0],
                         phase_2a=phases_data[1],
                         phase_2b=phases_data[2],
                         phase_2c=phases_data[3],
-                        phase_2cs=phases_data[4],
-                        last_updated=datetime.now(),
-                        source_url=source_url
+                        phase_2cs=phases_data[4]
                     )
                     
                     schools.append(school)
@@ -303,13 +301,14 @@ class SGSchoolingCollector:
                 # 添加延迟以避免过于频繁的请求
                 await asyncio.sleep(SCRAPING_CONFIG["request_delay"] / 1000)
                 
-                region_data = await self.scrape_region_data(region)
+                result_data = await self.scrape_region_data(region)
                 
-                if region_data:
+                if result_data:
+                    region_data, schools = result_data
                     # 保存区域数据
-                    file_path = await self._save_region_data(region_data)
+                    file_path = await self._save_region_data(region_data, schools)
                     result.mark_region_success(region, file_path)
-                    result.stats.total_schools += len(region_data.schools)
+                    result.stats.total_schools += len(schools)
                 else:
                     result.mark_region_failure(region)
                     result.add_error(region, "scraping_failed", "区域数据采集失败")
@@ -328,16 +327,27 @@ class SGSchoolingCollector:
         print(f"爬取完成！成功: {result.stats.successful_regions}, 失败: {result.stats.failed_regions}")
         return result
     
-    async def _save_region_data(self, region_data: RegionData) -> str:
+    async def _save_region_data(self, region_data: RegionData, schools: List[SchoolData]) -> str:
         """保存区域数据到文件"""
-        file_path = self.data_dir / "raw" / "regions" / f"{region_data.region_name}.json"
+        file_path = self.data_dir / "raw" / "regions" / f"{region_data.name}.json"
         
         # 确保目录存在
         file_path.parent.mkdir(parents=True, exist_ok=True)
         
+        # 构建符合规范的数据格式
+        region_json_data = {
+            "region": region_data.to_dict(),
+            "schools": [school.to_dict() for school in schools],  # schools需要从原始数据获取
+            "metadata": {
+                "crawl_time": datetime.now().isoformat(),
+                "source_url": f"https://sgschooling.com/year/2025/{region_data.name}",
+                "data_version": "1.0"
+            }
+        }
+        
         # 保存数据
         with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(region_data.to_dict(), f, ensure_ascii=False, indent=2)
+            json.dump(region_json_data, f, ensure_ascii=False, indent=2)
         
         return str(file_path)
     
