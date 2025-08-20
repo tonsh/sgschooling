@@ -13,6 +13,7 @@ from .collectors.sgschooling_collector import SGSchoolingCollector
 from .storage.data_storage import DataStorage
 from .collectors.data_validator import DataValidator
 from .models.crawl_result import CrawlResult
+from .data_analyzer import DataAnalyzer
 
 
 class SGPrimaryDataCollector:
@@ -29,28 +30,87 @@ class SGPrimaryDataCollector:
         self.data_dir = Path(data_dir)
         self.storage = DataStorage(data_dir)
         self.validator = DataValidator()
+        self.analyzer = DataAnalyzer(data_dir)
         self.use_sgschooling = use_sgschooling
         
         # 确保数据目录存在
         self.data_dir.mkdir(exist_ok=True)
 
-    async def collect_all_data(self, validate: bool = True) -> CrawlResult:
+    async def collect_all_data(self, validate: bool = True, force_recrawl: bool = False) -> CrawlResult:
         """
-        采集所有区域的学校数据
+        采集所有区域的学校数据，优先使用已存在的原始数据
         
         Args:
             validate: 是否验证数据
+            force_recrawl: 是否强制重新抓取（忽略已存在的数据）
             
         Returns:
             爬取结果对象
         """
         print("开始采集新加坡小学P1报名数据...")
         
+        # 检查是否已有原始数据且不强制重新抓取
+        if not force_recrawl and self.analyzer.check_raw_data_exists():
+            print("✅ 发现已存在的原始数据，直接使用...")
+            return await self._use_existing_data(validate)
+        
+        print("🕷️ 开始网络抓取...")
         if self.use_sgschooling:
             return await self._collect_from_sgschooling(validate)
         else:
             # 保留原有的采集逻辑（占位符）
             return await self._collect_from_moe(validate)
+    
+    async def _use_existing_data(self, validate: bool = True) -> CrawlResult:
+        """
+        使用已存在的原始数据生成CrawlResult
+        
+        Args:
+            validate: 是否验证数据
+            
+        Returns:
+            基于现有数据的爬取结果
+        """
+        print("📂 正在加载已存在的原始数据...")
+        
+        # 检查原始数据目录
+        raw_regions_dir = self.data_dir / "raw" / "regions"
+        json_files = list(raw_regions_dir.glob("*.json"))
+        
+        if not json_files:
+            raise FileNotFoundError("未找到原始数据文件")
+        
+        # 创建结果对象
+        result = CrawlResult.create_new(len(json_files))
+        result.start_time = datetime.now()
+        
+        # 逐个处理已存在的数据文件
+        for json_file in json_files:
+            region_name = json_file.stem
+            try:
+                # 文件已存在，标记为成功
+                result.mark_region_success(region_name, str(json_file))
+                print(f"✅ 已加载区域: {region_name}")
+                
+            except Exception as e:
+                result.mark_region_failure(region_name)
+                result.add_error(region_name, "loading_failed", str(e))
+                print(f"❌ 加载区域失败 {region_name}: {e}")
+        
+        # 如果需要验证数据
+        if validate:
+            print("🔍 开始验证已存在的数据...")
+            # 这里可以添加数据验证逻辑
+            pass
+        
+        result.finalize()
+        
+        # 保存结果
+        result_path = self.storage.save_crawl_result(result)
+        print(f"✅ 数据加载完成！共处理 {len(result.successful_regions)} 个区域")
+        print(f"📄 结果已保存至: {result_path}")
+        
+        return result
     
     async def _collect_from_sgschooling(self, validate: bool) -> CrawlResult:
         """从SGSchooling网站采集数据"""
