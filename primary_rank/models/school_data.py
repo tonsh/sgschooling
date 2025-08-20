@@ -4,7 +4,7 @@
 """
 
 from dataclasses import dataclass
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 
 @dataclass
@@ -77,8 +77,8 @@ class SchoolData:
     @property
     def rate(self) -> float:
         """
-        热度计算公式（阶段权重法）：
-        热度 = Σ(各阶段竞争度 × 阶段权重)
+        热度计算公式：
+        热度 = Σ(申请数/学位数 × 权重)
         
         权重分配：
         - Phase1: 40% (优先入学权，竞争最激烈)
@@ -86,8 +86,6 @@ class SchoolData:
         - Phase2B: 15% (社区关系，一般竞争)
         - Phase2C: 15% (普通申请，竞争较高)
         - Phase2CS: 5% (补充录取，竞争最低)
-        
-        各阶段竞争度 = (申请数/学位数) × 调节因子
         """
         if self.vacancy == 0:
             return 0.0
@@ -117,24 +115,10 @@ class SchoolData:
                 continue
                 
             # 申请竞争比例
-            competition_ratio = phase_data.applied / phase_data.vacancy if phase_data.vacancy > 0 else 0.0
-            
-            # 调节因子（根据阶段特点调整）
-            adjustment_factors = {
-                'phase_1': 1.5,    # Phase1最重要，放大系数
-                'phase_2a': 1.2,   # Phase2A有一定关系门槛
-                'phase_2b': 1.0,   # Phase2B相对平衡
-                'phase_2c': 1.3,   # Phase2C普通竞争但人数多
-                'phase_2cs': 0.8   # Phase2CS补充录取，降低影响
-            }
-            
-            adjustment_factor = adjustment_factors[phase_name]
-            
-            # 阶段竞争度（简化版）
-            phase_competition = competition_ratio * adjustment_factor
+            competition_ratio = phase_data.applied / phase_data.vacancy
             
             # 加权累加
-            total_hotness += phase_competition * phase_weights[phase_name]
+            total_hotness += competition_ratio * phase_weights[phase_name]
         
         return total_hotness
 
@@ -227,3 +211,17 @@ class SchoolData:
             phase_2c=PhaseData.from_dict(data.get("phase_2c", {})),
             phase_2cs=PhaseData.from_dict(data.get("phase_2cs", {}))
         )
+
+    @classmethod
+    def rank_list(cls, schools: List['SchoolData']) -> List['SchoolData']:
+        """
+        生成学校热度排名列表
+        
+        Args:
+            schools: 学校数据列表
+            
+        Returns:
+            按热度排序的学校对象列表
+        """
+        # 按热度排序（降序）
+        return sorted(schools, key=lambda x: x.rate, reverse=True)
