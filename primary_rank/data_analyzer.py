@@ -98,14 +98,14 @@ class DataAnalyzer:
         # 生成排名
         ranked_schools = SchoolData.rank_list(schools)
         ranked_regions = RegionData.rank_list(schools)
-        
+
         # 转换为字典格式并添加排名
         school_rankings = []
         for i, school in enumerate(ranked_schools, 1):
             school_dict = {
                 "rank": i,
                 "school_name": school.name,
-                "region": school.region,
+                "region": school.region.replace("-", " ").title(),
                 "remaining": school.remaining,
                 "failed": school.failed,
                 "vacancy": school.vacancy,
@@ -115,7 +115,7 @@ class DataAnalyzer:
                 "characteristic_analysis": school.characteristic_analysis
             }
             school_rankings.append(school_dict)
-        
+
         region_rankings = []
         for i, region in enumerate(ranked_regions, 1):
             region_dict = region.to_dict()
