@@ -63,9 +63,8 @@ class SchoolData:
     @property
     def applied(self) -> int:
         """总申请数"""
-        return (self.phase_1.applied + self.phase_2a.applied +
-                self.phase_2b.applied + self.phase_2c.applied +
-                self.phase_2cs.applied)
+        return (self.phase_1.taken + self.phase_2a.taken +
+                self.phase_2b.taken + self.phase_2c.applied)
 
     @property
     def taken(self) -> int:
@@ -77,50 +76,13 @@ class SchoolData:
     @property
     def rate(self) -> float:
         """
-        热度计算公式：
-        热度 = Σ(申请数/学位数 × 权重)
-        
-        权重分配：
-        - Phase1: 40% (优先入学权，竞争最激烈)
-        - Phase2A: 25% (校友/理事会关系，中等竞争)
-        - Phase2B: 15% (社区关系，一般竞争)
-        - Phase2C: 15% (普通申请，竞争较高)
-        - Phase2CS: 5% (补充录取，竞争最低)
+        学校热度
+        热度 = 申请数 / 学位数
         """
         if self.vacancy == 0:
             return 0.0
-        
-        # 阶段权重
-        phase_weights = {
-            'phase_1': 0.40,    # Phase1: 优先入学权
-            'phase_2a': 0.25,   # Phase2A: 校友/理事会关系
-            'phase_2b': 0.15,   # Phase2B: 社区关系
-            'phase_2c': 0.15,   # Phase2C: 普通申请
-            'phase_2cs': 0.05   # Phase2CS: 补充录取
-        }
-        
-        total_hotness = 0.0
-        
-        # 计算各阶段的竞争度
-        phases = [
-            ('phase_1', self.phase_1),
-            ('phase_2a', self.phase_2a),
-            ('phase_2b', self.phase_2b),
-            ('phase_2c', self.phase_2c),
-            ('phase_2cs', self.phase_2cs)
-        ]
-        
-        for phase_name, phase_data in phases:
-            if phase_data.vacancy == 0:
-                continue
-                
-            # 申请竞争比例
-            competition_ratio = phase_data.applied / phase_data.vacancy
-            
-            # 加权累加
-            total_hotness += competition_ratio * phase_weights[phase_name]
-        
-        return total_hotness
+
+        return self.applied * 1.0 / self.vacancy
 
     @property
     def remaining(self) -> int:
@@ -132,54 +94,6 @@ class SchoolData:
         """未报名成功人数 = max(总申请数 - 总学位数, 0)"""
         return max(self.applied - self.vacancy, 0)
 
-    @property
-    def characteristic_analysis(self) -> str:
-        """学校特点分析"""
-        analysis = []
-        
-        # 热度分析（基于新的阶段权重法）
-        if self.rate >= 0.8:
-            analysis.append("超高热度")
-        elif self.rate >= 0.6:
-            analysis.append("高热度")
-        elif self.rate >= 0.4:
-            analysis.append("中等热度")
-        elif self.rate >= 0.2:
-            analysis.append("低热度")
-        else:
-            analysis.append("冷门学校")
-            
-        # 竞争状况分析
-        if self.failed > 0:
-            if self.failed / self.applied >= 0.5:
-                analysis.append("竞争极其激烈")
-            elif self.failed / self.applied >= 0.3:
-                analysis.append("竞争激烈")
-            else:
-                analysis.append("有竞争")
-        else:
-            analysis.append("无竞争压力")
-            
-        # 录取情况分析
-        if self.remaining > 0:
-            if self.remaining / self.vacancy >= 0.3:
-                analysis.append("学位充裕")
-            elif self.remaining / self.vacancy >= 0.1:
-                analysis.append("有剩余学位")
-            else:
-                analysis.append("少量剩余")
-        else:
-            analysis.append("学位已满")
-            
-        # 学校规模
-        if self.vacancy >= 300:
-            analysis.append("大型学校")
-        elif self.vacancy >= 200:
-            analysis.append("中型学校")
-        else:
-            analysis.append("小型学校")
-            
-        return "、".join(analysis)
 
     def to_dict(self) -> Dict[str, Any]:
         """转换为字典格式"""
@@ -216,10 +130,10 @@ class SchoolData:
     def rank_list(cls, schools: List['SchoolData']) -> List['SchoolData']:
         """
         生成学校热度排名列表
-        
+
         Args:
             schools: 学校数据列表
-            
+
         Returns:
             按热度排序的学校对象列表
         """

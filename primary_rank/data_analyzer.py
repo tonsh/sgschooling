@@ -111,8 +111,7 @@ class DataAnalyzer:
                 "vacancy": school.vacancy,
                 "applied": school.applied,
                 "taken": school.taken,
-                "rate": school.rate,
-                "characteristic_analysis": school.characteristic_analysis
+                "rate": school.rate
             }
             school_rankings.append(school_dict)
 

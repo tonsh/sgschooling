@@ -79,37 +79,33 @@ class ReportGenerator:
 ## 🏫 学校热度排名 (全部179所学校)
 
 以下是按热度排序的所有学校，热度计算公式为：
-**热度 = Σ(各阶段竞争度 × 阶段权重)**
-**各阶段竞争度 = (申请数/学位数) × 调节因子**
+**热度 = 申请数 / 学位数**
 
-**阶段权重分配：**
-- Phase1 (优先入学): 40%
-- Phase2A (校友/理事会): 25%
-- Phase2B (社区关系): 15%
-- Phase2C (普通申请): 15%
-- Phase2CS (补充录取): 5%
+**申请数计算方式：**
+申请数 = Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.applied
 
-| 排名 | 学校名称 | 区域 | 学位数 | 报名数 | 剩余名额 | 特点分析 |
-|------|----------|------|--------|--------|----------|----------|
+| 排名 | 学校名称 | 区域 | 学位数 | 报名数 | 剩余名额 | 热度 |
+|------|----------|------|--------|--------|----------|------|
 """
 
         # 添加学校排名表格 - 显示所有学校
         for i, school in enumerate(school_rankings, 1):
-            content += f"| {i} | {school['school_name']} | {school['region']} | {school['vacancy']} | {school['applied']} | {school['remaining']} | {school['characteristic_analysis']} |\n"
+            content += f"| {i} | {school['school_name']} | {school['region']} | {school['vacancy']} | {school['applied']} | {school['remaining']} | {school['rate']:.3f} |\n"
 
         content += f"""
 
 ## 🗺️ 区域排名 (全部27个区域)
 
-以下是按超额率排序的所有区域，超额率 = 申请数 / 学位数
+以下是按热度排序的所有区域，区域热度计算公式为：
+**区域热度 = 申请数 / 学位数**
 
-| 排名 | 区域 | 学校数 | 学位数 | 报名数 | 剩余名额 | 特点分析 |
-|------|------|--------|--------|--------|----------|----------|
+| 排名 | 区域 | 学校数 | 学位数 | 报名数 | 剩余名额 | 热度 |
+|------|------|--------|--------|--------|----------|------|
 """
 
         # 添加区域排名表格 - 显示所有区域
         for region in region_rankings:
-            content += f"| {region['rank']} | {region['name']} | {region['school_num']} | {region['vacancy']} | {region['applied']} | {region['remaining']} | {region['characteristic_analysis']} |\n"
+            content += f"| {region['rank']} | {region['region']} | {region['school_num']} | {region['vacancy']} | {region['applied']} | {region['remaining']} | {region['rate']:.3f} |\n"
 
         content += """
 
@@ -140,7 +136,9 @@ class ReportGenerator:
 
 ### 指标定义
 
-- **热度**: 阶段权重综合竞争强度，考虑各报名阶段的竞争激烈程度和重要性，数值越高表示学校越热门难进
+- **热度**: 简化竞争度指标，公式为 申请数 / 学位数，数值越高表示学校或区域越热门难进
+- **申请数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.applied
+- **学位数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.taken + Phase2CS.vacancy
 - **剩余名额**: 学位数 - 录取数
 - **未录取数**: max(申请数 - 学位数, 0)
 - **竞争比率**: 申请数 / 学位数，反映区域竞争激烈程度

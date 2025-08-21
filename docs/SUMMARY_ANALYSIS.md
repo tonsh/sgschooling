@@ -2,7 +2,7 @@
 
 ## 📊 数据概览
 
-**报告生成时间**: 2025年08月21日 12:47:54
+**报告生成时间**: 2025年08月21日 14:11:07
 
 ### 总体统计
 
@@ -11,299 +11,295 @@
 | 总区域数 | 27 |
 | 总学校数 | 179 |
 | 总学位数 | 40,192 |
-| 总申请数 | 41,117 |
+| 总申请数 | 36,373 |
 | 总录取数 | 32,664 |
 | 总剩余名额 | 7,528 |
-| 总未录取数 | 5,777 |
-| 整体成功率 | 79.44% |
+| 总未录取数 | 3,709 |
+| 整体成功率 | 89.80% |
 | 学位利用率 | 81.27% |
 
 ## 🏫 学校热度排名 (全部179所学校)
 
 以下是按热度排序的所有学校，热度计算公式为：
-**热度 = Σ(各阶段竞争度 × 阶段权重)**
-**各阶段竞争度 = (申请数/学位数) × 调节因子**
+**热度 = 申请数 / 学位数**
 
-**阶段权重分配：**
-- Phase1 (优先入学): 40%
-- Phase2A (校友/理事会): 25% 
-- Phase2B (社区关系): 15%
-- Phase2C (普通申请): 15%
-- Phase2CS (补充录取): 5%
+**申请数计算方式：**
+申请数 = Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.applied
 
-| 排名 | 学校名称 | 区域 | 学位数 | 报名数 | 剩余名额 | 特点分析 |
-|------|----------|------|--------|--------|----------|----------|
-| 1 | Princess Elizabeth | Bukit Batok | 201 | 493 | 0 | 超高热度、竞争极其激烈、学位已满、中型学校 |
-| 2 | South View | Choa Chu Kang | 271 | 516 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 3 | Nan Hua | Clementi | 242 | 427 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 4 | Gongshang | Tampines | 241 | 450 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 5 | Pei Hwa Presbyterian | Bukit Timah | 225 | 366 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 6 | Temasek | Bedok | 201 | 332 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 7 | Chongfu | Yishun | 300 | 439 | 0 | 超高热度、竞争激烈、学位已满、大型学校 |
-| 8 | Rosyth | Serangoon | 272 | 407 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 9 | Yangzheng | Serangoon | 161 | 268 | 0 | 超高热度、竞争激烈、学位已满、小型学校 |
-| 10 | Tao Nan | Marine Parade | 366 | 479 | 0 | 超高热度、有竞争、学位已满、大型学校 |
-| 11 | Ai Tong | Bishan | 303 | 408 | 0 | 超高热度、有竞争、学位已满、大型学校 |
-| 12 | Northland | Yishun | 241 | 357 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 13 | Rulang | Jurong West | 270 | 369 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 14 | St. Hilda’s | Tampines | 283 | 385 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 15 | Shuqun | Jurong West | 201 | 293 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 16 | Nanyang | Bukit Timah | 392 | 479 | 0 | 超高热度、有竞争、学位已满、大型学校 |
-| 17 | Nan Chiau | Sengkang | 300 | 544 | 0 | 超高热度、竞争激烈、学位已满、大型学校 |
-| 18 | Red Swastika | Bedok | 241 | 330 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 19 | CHIJ St. Nicholas Girls’ | Ang Mo Kio | 211 | 300 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 20 | Maha Bodhi | Geylang | 332 | 431 | 0 | 超高热度、有竞争、学位已满、大型学校 |
-| 21 | Holy Innocents’ | Hougang | 272 | 359 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 22 | Kong Hwa | Geylang | 271 | 365 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 23 | Catholic High | Bishan | 240 | 334 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 24 | Angsana | Tampines | 280 | 435 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 25 | Wellington | Sembawang | 240 | 315 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 26 | Waterway | Punggol | 210 | 288 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 27 | Pei Chun Public | Toa Payoh | 306 | 374 | 0 | 超高热度、有竞争、学位已满、大型学校 |
-| 28 | Methodist Girls’ | Bukit Timah | 210 | 275 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 29 | Yu Neng | Bedok | 180 | 217 | 0 | 超高热度、有竞争、学位已满、小型学校 |
-| 30 | Tanjong Katong | Marine Parade | 202 | 277 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 31 | Fairfield Methodist | Queenstown | 273 | 317 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 32 | Frontier | Jurong West | 210 | 251 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 33 | CHIJ (Toa Payoh) | Toa Payoh | 210 | 269 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 34 | Singapore Chinese Girls’ | Novena | 193 | 241 | 0 | 超高热度、有竞争、学位已满、小型学校 |
-| 35 | Pasir Ris | Pasir Ris | 180 | 203 | 0 | 超高热度、有竞争、学位已满、小型学校 |
-| 36 | Maris Stella High | Toa Payoh | 271 | 355 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 37 | Punggol Green | Punggol | 241 | 314 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 38 | Radin Mas | Bukit Merah | 200 | 249 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 39 | Hong Wen | Kallang | 211 | 302 | 0 | 超高热度、竞争激烈、学位已满、中型学校 |
-| 40 | Anglo-Chinese (Junior) | Central | 271 | 336 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 41 | Sengkang Green | Sengkang | 243 | 303 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 42 | Riverside | Woodlands | 210 | 254 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 43 | Kuo Chuan Presbyterian | Bishan | 241 | 297 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 44 | Admiralty | Woodlands | 210 | 246 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 45 | Xinmin | Hougang | 211 | 245 | 0 | 超高热度、有竞争、学位已满、中型学校 |
-| 46 | Huamin | Yishun | 240 | 284 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 47 | Westwood | Jurong West | 240 | 277 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 48 | Anglo-Chinese (Primary) | Novena | 240 | 298 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 49 | Valour | Punggol | 240 | 272 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 50 | St. Joseph’s Institution Junior | Novena | 241 | 316 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 51 | North View | Yishun | 241 | 293 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 52 | Horizon | Punggol | 241 | 271 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 53 | Chua Chu Kang | Choa Chu Kang | 243 | 318 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 54 | Elias Park | Pasir Ris | 161 | 210 | 0 | 高热度、有竞争、学位已满、小型学校 |
-| 55 | Jurong West | Jurong West | 180 | 209 | 0 | 高热度、有竞争、学位已满、小型学校 |
-| 56 | Henry Park | Bukit Timah | 303 | 333 | 0 | 高热度、有竞争、学位已满、大型学校 |
-| 57 | Poi Ching | Tampines | 281 | 394 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 58 | Bukit Panjang | Bukit Panjang | 242 | 259 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 59 | Anderson | Ang Mo Kio | 214 | 240 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 60 | Naval Base | Yishun | 241 | 248 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 61 | Punggol | Hougang | 192 | 209 | 0 | 高热度、有竞争、学位已满、小型学校 |
-| 62 | Keming | Bukit Batok | 240 | 288 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 63 | Northshore | Punggol | 280 | 322 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 64 | Woodlands | Woodlands | 211 | 215 | 3 | 高热度、有竞争、少量剩余、中型学校 |
-| 65 | St. Anthony’s | Bukit Batok | 242 | 281 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 66 | Zhenghua | Bukit Panjang | 212 | 209 | 12 | 高热度、无竞争压力、少量剩余、中型学校 |
-| 67 | Fengshan | Bedok | 182 | 206 | 0 | 高热度、有竞争、学位已满、小型学校 |
-| 68 | Jing Shan | Ang Mo Kio | 150 | 150 | 10 | 高热度、无竞争压力、少量剩余、小型学校 |
-| 69 | Sembawang | Sembawang | 200 | 232 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 70 | Punggol View | Punggol | 242 | 262 | 21 | 高热度、有竞争、少量剩余、中型学校 |
-| 71 | Dazhong | Bukit Batok | 201 | 208 | 8 | 高热度、有竞争、少量剩余、中型学校 |
-| 72 | Paya Lebar Methodist Girls’ | Hougang | 272 | 295 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 73 | Alexandra | Bukit Merah | 204 | 210 | 0 | 高热度、有竞争、学位已满、中型学校 |
-| 74 | Canossa Catholic | Geylang | 121 | 133 | 26 | 中等热度、有竞争、有剩余学位、小型学校 |
-| 75 | West Spring | Bukit Panjang | 213 | 197 | 23 | 中等热度、无竞争压力、有剩余学位、中型学校 |
-| 76 | West View | Bukit Panjang | 150 | 133 | 29 | 中等热度、无竞争压力、有剩余学位、小型学校 |
-| 77 | St. Andrew’s Junior | Toa Payoh | 241 | 261 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 78 | Canberra | Sembawang | 210 | 228 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 79 | St. Gabriel’s | Serangoon | 150 | 169 | 12 | 中等热度、有竞争、少量剩余、小型学校 |
-| 80 | Concord | Choa Chu Kang | 211 | 221 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 81 | Compassvale | Sengkang | 241 | 257 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 82 | Mee Toh | Punggol | 300 | 334 | 0 | 中等热度、有竞争、学位已满、大型学校 |
-| 83 | Springdale | Sengkang | 241 | 245 | 26 | 中等热度、有竞争、有剩余学位、中型学校 |
-| 84 | Casuarina | Pasir Ris | 160 | 136 | 34 | 中等热度、无竞争压力、有剩余学位、小型学校 |
-| 85 | Junyuan | Tampines | 281 | 287 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 86 | Greenwood | Woodlands | 210 | 211 | 16 | 中等热度、有竞争、少量剩余、中型学校 |
-| 87 | River Valley | Central | 214 | 214 | 0 | 中等热度、无竞争压力、学位已满、中型学校 |
-| 88 | Raffles Girls’ | Bukit Timah | 270 | 298 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 89 | Rivervale | Sengkang | 200 | 215 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 90 | Haig Girls’ | Geylang | 192 | 197 | 15 | 中等热度、有竞争、少量剩余、小型学校 |
-| 91 | Hougang | Hougang | 191 | 208 | 0 | 中等热度、有竞争、学位已满、小型学校 |
-| 92 | Zhangde | Bukit Merah | 152 | 148 | 13 | 中等热度、无竞争压力、少量剩余、小型学校 |
-| 93 | Tampines | Tampines | 281 | 323 | 47 | 中等热度、有竞争、有剩余学位、中型学校 |
-| 94 | Qifa | Clementi | 283 | 300 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 95 | Queenstown | Queenstown | 211 | 221 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 96 | Marsiling | Woodlands | 180 | 181 | 5 | 中等热度、有竞争、少量剩余、小型学校 |
-| 97 | CHIJ Our Lady of the Nativity | Hougang | 240 | 255 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 98 | Woodgrove | Woodlands | 181 | 177 | 11 | 中等热度、无竞争压力、少量剩余、小型学校 |
-| 99 | Oasis | Punggol | 240 | 233 | 46 | 中等热度、无竞争压力、有剩余学位、中型学校 |
-| 100 | Opera Estate | Bedok | 181 | 186 | 21 | 中等热度、有竞争、有剩余学位、小型学校 |
-| 101 | Ngee Ann | Marine Parade | 242 | 263 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 102 | CHIJ (Katong) | Bedok | 200 | 205 | 36 | 中等热度、有竞争、有剩余学位、中型学校 |
-| 103 | Chongzheng | Tampines | 243 | 245 | 0 | 中等热度、有竞争、学位已满、中型学校 |
-| 104 | Peiying | Yishun | 200 | 211 | 52 | 中等热度、有竞争、有剩余学位、中型学校 |
-| 105 | White Sands | Pasir Ris | 180 | 172 | 23 | 中等热度、无竞争压力、有剩余学位、小型学校 |
-| 106 | Lakeside | Jurong West | 240 | 242 | 33 | 中等热度、有竞争、有剩余学位、中型学校 |
-| 107 | Geylang Methodist | Geylang | 270 | 270 | 0 | 中等热度、无竞争压力、学位已满、中型学校 |
-| 108 | Evergreen | Woodlands | 180 | 169 | 32 | 中等热度、无竞争压力、有剩余学位、小型学校 |
-| 109 | St. Margaret’s | Central | 193 | 205 | 0 | 中等热度、有竞争、学位已满、小型学校 |
-| 110 | De La Salle | Choa Chu Kang | 241 | 244 | 29 | 中等热度、有竞争、有剩余学位、中型学校 |
-| 111 | Fuchun | Woodlands | 180 | 134 | 47 | 低热度、无竞争压力、有剩余学位、小型学校 |
-| 112 | Innova | Woodlands | 180 | 159 | 28 | 低热度、无竞争压力、有剩余学位、小型学校 |
-| 113 | Xingnan | Jurong West | 181 | 142 | 51 | 低热度、无竞争压力、有剩余学位、小型学校 |
-| 114 | CHIJ Our Lady of Good Counsel | Serangoon | 151 | 136 | 49 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 115 | Punggol Cove | Punggol | 282 | 230 | 100 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 116 | Jiemin | Yishun | 190 | 141 | 63 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 117 | Greenridge | Bukit Panjang | 151 | 94 | 60 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 118 | Yishun | Yishun | 221 | 207 | 72 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 119 | Woodlands Ring | Woodlands | 180 | 131 | 53 | 低热度、无竞争压力、有剩余学位、小型学校 |
-| 120 | Bukit Timah | Bukit Timah | 189 | 203 | 37 | 低热度、有竞争、有剩余学位、小型学校 |
-| 121 | Jurong | Jurong East | 220 | 184 | 73 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 122 | Park View | Pasir Ris | 190 | 156 | 68 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 123 | Kheng Cheng | Toa Payoh | 242 | 253 | 0 | 低热度、有竞争、学位已满、中型学校 |
-| 124 | Xishan | Yishun | 240 | 251 | 80 | 低热度、有竞争、学位充裕、中型学校 |
-| 125 | Fern Green | Sengkang | 280 | 234 | 68 | 低热度、无竞争压力、有剩余学位、中型学校 |
-| 126 | Mayflower | Ang Mo Kio | 151 | 118 | 66 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 127 | Fernvale | Sengkang | 281 | 227 | 85 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 128 | Fuhua | Jurong East | 222 | 149 | 88 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 129 | Teck Ghee | Ang Mo Kio | 210 | 192 | 61 | 低热度、无竞争压力、有剩余学位、中型学校 |
-| 130 | Cedar | Toa Payoh | 243 | 218 | 89 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 131 | Yio Chu Kang | Hougang | 181 | 144 | 88 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 132 | Qihua | Woodlands | 181 | 121 | 61 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 133 | CHIJ Our Lady Queen of Peace | Bukit Panjang | 180 | 167 | 43 | 低热度、无竞争压力、有剩余学位、小型学校 |
-| 134 | CHIJ (Kellock) | Bukit Merah | 183 | 145 | 66 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 135 | Tampines North | Tampines | 320 | 296 | 131 | 低热度、无竞争压力、学位充裕、大型学校 |
-| 136 | Telok Kurau | Bedok | 240 | 203 | 87 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 137 | North Vista | Sengkang | 240 | 167 | 101 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 138 | Corporation | Jurong West | 180 | 109 | 86 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 139 | Yew Tee | Choa Chu Kang | 210 | 172 | 76 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 140 | Palm View | Sengkang | 240 | 206 | 81 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 141 | North Spring | Sengkang | 180 | 118 | 79 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 142 | Greendale | Punggol | 210 | 132 | 104 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 143 | West Grove | Jurong West | 210 | 154 | 96 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 144 | Blangah Rise | Bukit Merah | 121 | 68 | 71 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 145 | Beacon | Bukit Panjang | 150 | 89 | 69 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 146 | Bukit View | Bukit Batok | 280 | 257 | 110 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 147 | Ang Mo Kio | Ang Mo Kio | 183 | 112 | 88 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 148 | Unity | Choa Chu Kang | 211 | 126 | 90 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 149 | Endeavour | Sembawang | 241 | 191 | 106 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 150 | Clementi | Clementi | 321 | 274 | 145 | 低热度、无竞争压力、学位充裕、大型学校 |
-| 151 | Anchor Green | Sengkang | 240 | 139 | 132 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 152 | St. Stephen’s | Bedok | 241 | 207 | 109 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 153 | Farrer Park | Kallang | 181 | 116 | 105 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 154 | East Spring | Tampines | 241 | 142 | 111 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 155 | Teck Whye | Choa Chu Kang | 212 | 133 | 121 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 156 | Meridian | Pasir Ris | 222 | 114 | 117 | 低热度、无竞争压力、学位充裕、中型学校 |
-| 157 | Xinghua | Hougang | 181 | 137 | 96 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 158 | Seng Kang | Sengkang | 182 | 84 | 116 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 159 | Bendemeer | Kallang | 182 | 116 | 107 | 低热度、无竞争压力、学位充裕、小型学校 |
-| 160 | Cantonment | Bukit Merah | 150 | 77 | 87 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 161 | Boon Lay Garden | Jurong West | 180 | 92 | 100 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 162 | Pei Tong | Clementi | 322 | 158 | 190 | 冷门学校、无竞争压力、学位充裕、大型学校 |
-| 163 | Gan Eng Seng | Bukit Merah | 151 | 55 | 99 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 164 | Si Ling | Woodlands | 151 | 61 | 92 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 165 | Edgefield | Punggol | 241 | 122 | 152 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 166 | Yuhua | Jurong East | 240 | 104 | 148 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 167 | St. Anthony’s Canossian | Bedok | 211 | 113 | 131 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 168 | Yumin | Tampines | 281 | 129 | 191 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 169 | Montfort Junior | Hougang | 151 | 61 | 107 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 170 | Marymount Convent | Toa Payoh | 240 | 182 | 151 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 171 | Lianhua | Bukit Batok | 320 | 136 | 216 | 冷门学校、无竞争压力、学位充裕、大型学校 |
-| 172 | Changkat | Tampines | 282 | 111 | 178 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 173 | Bedok Green | Bedok | 240 | 118 | 165 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 174 | Pioneer | Jurong West | 352 | 268 | 140 | 冷门学校、无竞争压力、学位充裕、大型学校 |
-| 175 | Ahmad Ibrahim | Yishun | 221 | 89 | 154 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 176 | First Toa Payoh | Toa Payoh | 181 | 60 | 141 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 177 | New Town | Queenstown | 210 | 82 | 157 | 冷门学校、无竞争压力、学位充裕、中型学校 |
-| 178 | Zhonghua | Serangoon | 150 | 51 | 125 | 冷门学校、无竞争压力、学位充裕、小型学校 |
-| 179 | Northoaks | Sembawang | 240 | 53 | 191 | 冷门学校、无竞争压力、学位充裕、中型学校 |
+| 排名 | 学校名称 | 区域 | 学位数 | 报名数 | 剩余名额 | 热度 |
+|------|----------|------|--------|--------|----------|------|
+| 1 | Princess Elizabeth | Bukit Batok | 201 | 392 | 0 | 1.950 |
+| 2 | Nan Chiau | Sengkang | 300 | 484 | 0 | 1.613 |
+| 3 | Nan Hua | Clementi | 242 | 367 | 0 | 1.517 |
+| 4 | Hong Wen | Kallang | 211 | 302 | 0 | 1.431 |
+| 5 | South View | Choa Chu Kang | 271 | 385 | 0 | 1.421 |
+| 6 | Northland | Yishun | 241 | 342 | 0 | 1.419 |
+| 7 | Poi Ching | Tampines | 281 | 394 | 0 | 1.402 |
+| 8 | Angsana | Tampines | 280 | 388 | 0 | 1.386 |
+| 9 | Rosyth | Serangoon | 272 | 362 | 0 | 1.331 |
+| 10 | St. Hilda’s | Tampines | 283 | 376 | 0 | 1.329 |
+| 11 | Chongfu | Yishun | 300 | 398 | 0 | 1.327 |
+| 12 | Yangzheng | Serangoon | 161 | 212 | 0 | 1.317 |
+| 13 | Chua Chu Kang | Choa Chu Kang | 243 | 318 | 0 | 1.309 |
+| 14 | Elias Park | Pasir Ris | 161 | 210 | 0 | 1.304 |
+| 15 | Gongshang | Tampines | 241 | 314 | 0 | 1.303 |
+| 16 | Wellington | Sembawang | 240 | 304 | 0 | 1.267 |
+| 17 | Temasek | Bedok | 201 | 254 | 0 | 1.264 |
+| 18 | Kong Hwa | Geylang | 271 | 340 | 0 | 1.255 |
+| 19 | Punggol Green | Punggol | 241 | 301 | 0 | 1.249 |
+| 20 | Radin Mas | Bukit Merah | 200 | 249 | 0 | 1.245 |
+| 21 | Holy Innocents’ | Hougang | 272 | 337 | 0 | 1.239 |
+| 22 | Maha Bodhi | Geylang | 332 | 408 | 0 | 1.229 |
+| 23 | Maris Stella High | Toa Payoh | 271 | 333 | 0 | 1.229 |
+| 24 | Kuo Chuan Presbyterian | Bishan | 241 | 295 | 0 | 1.224 |
+| 25 | Red Swastika | Bedok | 241 | 293 | 0 | 1.216 |
+| 26 | Rulang | Jurong West | 270 | 328 | 0 | 1.215 |
+| 27 | North View | Yishun | 241 | 290 | 0 | 1.203 |
+| 28 | Waterway | Punggol | 210 | 252 | 0 | 1.200 |
+| 29 | Keming | Bukit Batok | 240 | 288 | 0 | 1.200 |
+| 30 | Pei Hwa Presbyterian | Bukit Timah | 225 | 268 | 0 | 1.191 |
+| 31 | Shuqun | Jurong West | 201 | 239 | 0 | 1.189 |
+| 32 | Admiralty | Woodlands | 210 | 245 | 0 | 1.167 |
+| 33 | St. Anthony’s | Bukit Batok | 242 | 281 | 0 | 1.161 |
+| 34 | Xinmin | Hougang | 211 | 245 | 0 | 1.161 |
+| 35 | Pei Chun Public | Toa Payoh | 306 | 355 | 0 | 1.160 |
+| 36 | Sembawang | Sembawang | 200 | 232 | 0 | 1.160 |
+| 37 | Methodist Girls’ | Bukit Timah | 210 | 243 | 0 | 1.157 |
+| 38 | St. Joseph’s Institution Junior | Novena | 241 | 278 | 0 | 1.154 |
+| 39 | Northshore | Punggol | 280 | 322 | 0 | 1.150 |
+| 40 | Tanjong Katong | Marine Parade | 202 | 232 | 0 | 1.149 |
+| 41 | Sengkang Green | Sengkang | 243 | 279 | 0 | 1.148 |
+| 42 | CHIJ St. Nicholas Girls’ | Ang Mo Kio | 211 | 241 | 0 | 1.142 |
+| 43 | Catholic High | Bishan | 240 | 272 | 0 | 1.133 |
+| 44 | CHIJ (Toa Payoh) | Toa Payoh | 210 | 238 | 0 | 1.133 |
+| 45 | Fengshan | Bedok | 182 | 206 | 0 | 1.132 |
+| 46 | Valour | Punggol | 240 | 271 | 0 | 1.129 |
+| 47 | Anglo-Chinese (Junior) | Central | 271 | 305 | 0 | 1.125 |
+| 48 | Ai Tong | Bishan | 303 | 341 | 0 | 1.125 |
+| 49 | Anglo-Chinese (Primary) | Novena | 240 | 270 | 0 | 1.125 |
+| 50 | Frontier | Jurong West | 210 | 236 | 0 | 1.124 |
+| 51 | Anderson | Ang Mo Kio | 214 | 240 | 0 | 1.121 |
+| 52 | Horizon | Punggol | 241 | 270 | 0 | 1.120 |
+| 53 | Riverside | Woodlands | 210 | 235 | 0 | 1.119 |
+| 54 | Huamin | Yishun | 240 | 268 | 0 | 1.117 |
+| 55 | Mee Toh | Punggol | 300 | 334 | 0 | 1.113 |
+| 56 | Raffles Girls’ | Bukit Timah | 270 | 298 | 0 | 1.104 |
+| 57 | Fairfield Methodist | Queenstown | 273 | 301 | 0 | 1.103 |
+| 58 | Jurong West | Jurong West | 180 | 198 | 0 | 1.100 |
+| 59 | Pasir Ris | Pasir Ris | 180 | 198 | 0 | 1.100 |
+| 60 | Henry Park | Bukit Timah | 303 | 333 | 0 | 1.099 |
+| 61 | Tao Nan | Marine Parade | 366 | 402 | 0 | 1.098 |
+| 62 | Westwood | Jurong West | 240 | 263 | 0 | 1.096 |
+| 63 | Hougang | Hougang | 191 | 208 | 0 | 1.089 |
+| 64 | Yu Neng | Bedok | 180 | 196 | 0 | 1.089 |
+| 65 | Singapore Chinese Girls’ | Novena | 193 | 210 | 0 | 1.088 |
+| 66 | Ngee Ann | Marine Parade | 242 | 263 | 0 | 1.087 |
+| 67 | Canberra | Sembawang | 210 | 228 | 0 | 1.086 |
+| 68 | Punggol | Hougang | 192 | 208 | 0 | 1.083 |
+| 69 | St. Andrew’s Junior | Toa Payoh | 241 | 261 | 0 | 1.083 |
+| 70 | Paya Lebar Methodist Girls’ | Hougang | 272 | 293 | 0 | 1.077 |
+| 71 | Rivervale | Sengkang | 200 | 215 | 0 | 1.075 |
+| 72 | Bukit Panjang | Bukit Panjang | 242 | 259 | 0 | 1.070 |
+| 73 | Compassvale | Sengkang | 241 | 257 | 0 | 1.066 |
+| 74 | CHIJ Our Lady of the Nativity | Hougang | 240 | 255 | 0 | 1.062 |
+| 75 | St. Margaret’s | Central | 193 | 205 | 0 | 1.062 |
+| 76 | Qifa | Clementi | 283 | 300 | 0 | 1.060 |
+| 77 | Nanyang | Bukit Timah | 392 | 413 | 0 | 1.054 |
+| 78 | Concord | Choa Chu Kang | 211 | 221 | 0 | 1.047 |
+| 79 | Queenstown | Queenstown | 211 | 221 | 0 | 1.047 |
+| 80 | Kheng Cheng | Toa Payoh | 242 | 253 | 0 | 1.045 |
+| 81 | Alexandra | Bukit Merah | 204 | 210 | 0 | 1.029 |
+| 82 | Junyuan | Tampines | 281 | 287 | 0 | 1.021 |
+| 83 | Naval Base | Yishun | 241 | 245 | 0 | 1.017 |
+| 84 | Chongzheng | Tampines | 243 | 245 | 0 | 1.008 |
+| 85 | River Valley | Central | 214 | 214 | 0 | 1.000 |
+| 86 | Geylang Methodist | Geylang | 270 | 270 | 0 | 1.000 |
+| 87 | Woodlands | Woodlands | 211 | 208 | 3 | 0.986 |
+| 88 | Marsiling | Woodlands | 180 | 175 | 5 | 0.972 |
+| 89 | Dazhong | Bukit Batok | 201 | 193 | 8 | 0.960 |
+| 90 | Zhenghua | Bukit Panjang | 212 | 200 | 12 | 0.943 |
+| 91 | Woodgrove | Woodlands | 181 | 170 | 11 | 0.939 |
+| 92 | Jing Shan | Ang Mo Kio | 150 | 140 | 10 | 0.933 |
+| 93 | Greenwood | Woodlands | 210 | 194 | 16 | 0.924 |
+| 94 | Haig Girls’ | Geylang | 192 | 177 | 15 | 0.922 |
+| 95 | St. Gabriel’s | Serangoon | 150 | 138 | 12 | 0.920 |
+| 96 | Zhangde | Bukit Merah | 152 | 139 | 13 | 0.914 |
+| 97 | Punggol View | Punggol | 242 | 221 | 21 | 0.913 |
+| 98 | Springdale | Sengkang | 241 | 215 | 26 | 0.892 |
+| 99 | West Spring | Bukit Panjang | 213 | 190 | 23 | 0.892 |
+| 100 | Opera Estate | Bedok | 181 | 160 | 21 | 0.884 |
+| 101 | De La Salle | Choa Chu Kang | 241 | 212 | 29 | 0.880 |
+| 102 | White Sands | Pasir Ris | 180 | 157 | 23 | 0.872 |
+| 103 | Lakeside | Jurong West | 240 | 207 | 33 | 0.863 |
+| 104 | Innova | Woodlands | 180 | 152 | 28 | 0.844 |
+| 105 | Tampines | Tampines | 281 | 234 | 47 | 0.833 |
+| 106 | Evergreen | Woodlands | 180 | 148 | 32 | 0.822 |
+| 107 | CHIJ (Katong) | Bedok | 200 | 164 | 36 | 0.820 |
+| 108 | Oasis | Punggol | 240 | 194 | 46 | 0.808 |
+| 109 | West View | Bukit Panjang | 150 | 121 | 29 | 0.807 |
+| 110 | Bukit Timah | Bukit Timah | 189 | 152 | 37 | 0.804 |
+| 111 | Casuarina | Pasir Ris | 160 | 126 | 34 | 0.787 |
+| 112 | Canossa Catholic | Geylang | 121 | 95 | 26 | 0.785 |
+| 113 | CHIJ Our Lady Queen of Peace | Bukit Panjang | 180 | 137 | 43 | 0.761 |
+| 114 | Fern Green | Sengkang | 280 | 212 | 68 | 0.757 |
+| 115 | Peiying | Yishun | 200 | 148 | 52 | 0.740 |
+| 116 | Fuchun | Woodlands | 180 | 133 | 47 | 0.739 |
+| 117 | Xingnan | Jurong West | 181 | 130 | 51 | 0.718 |
+| 118 | Teck Ghee | Ang Mo Kio | 210 | 149 | 61 | 0.710 |
+| 119 | Woodlands Ring | Woodlands | 180 | 127 | 53 | 0.706 |
+| 120 | Fernvale | Sengkang | 281 | 196 | 85 | 0.698 |
+| 121 | CHIJ Our Lady of Good Counsel | Serangoon | 151 | 102 | 49 | 0.675 |
+| 122 | Yishun | Yishun | 221 | 149 | 72 | 0.674 |
+| 123 | Jiemin | Yishun | 190 | 127 | 63 | 0.668 |
+| 124 | Jurong | Jurong East | 220 | 147 | 73 | 0.668 |
+| 125 | Xishan | Yishun | 240 | 160 | 80 | 0.667 |
+| 126 | Qihua | Woodlands | 181 | 120 | 61 | 0.663 |
+| 127 | Palm View | Sengkang | 240 | 159 | 81 | 0.662 |
+| 128 | Punggol Cove | Punggol | 282 | 182 | 100 | 0.645 |
+| 129 | Park View | Pasir Ris | 190 | 122 | 68 | 0.642 |
+| 130 | CHIJ (Kellock) | Bukit Merah | 183 | 117 | 66 | 0.639 |
+| 131 | Yew Tee | Choa Chu Kang | 210 | 134 | 76 | 0.638 |
+| 132 | Telok Kurau | Bedok | 240 | 153 | 87 | 0.637 |
+| 133 | Cedar | Toa Payoh | 243 | 154 | 89 | 0.634 |
+| 134 | Bukit View | Bukit Batok | 280 | 170 | 110 | 0.607 |
+| 135 | Fuhua | Jurong East | 222 | 134 | 88 | 0.604 |
+| 136 | Greenridge | Bukit Panjang | 151 | 91 | 60 | 0.603 |
+| 137 | Pioneer | Jurong West | 352 | 212 | 140 | 0.602 |
+| 138 | Tampines North | Tampines | 320 | 189 | 131 | 0.591 |
+| 139 | North Vista | Sengkang | 240 | 139 | 101 | 0.579 |
+| 140 | Unity | Choa Chu Kang | 211 | 121 | 90 | 0.573 |
+| 141 | Mayflower | Ang Mo Kio | 151 | 85 | 66 | 0.563 |
+| 142 | North Spring | Sengkang | 180 | 101 | 79 | 0.561 |
+| 143 | Endeavour | Sembawang | 241 | 135 | 106 | 0.560 |
+| 144 | Clementi | Clementi | 321 | 176 | 145 | 0.548 |
+| 145 | St. Stephen’s | Bedok | 241 | 132 | 109 | 0.548 |
+| 146 | West Grove | Jurong West | 210 | 114 | 96 | 0.543 |
+| 147 | Beacon | Bukit Panjang | 150 | 81 | 69 | 0.540 |
+| 148 | East Spring | Tampines | 241 | 130 | 111 | 0.539 |
+| 149 | Corporation | Jurong West | 180 | 94 | 86 | 0.522 |
+| 150 | Ang Mo Kio | Ang Mo Kio | 183 | 95 | 88 | 0.519 |
+| 151 | Yio Chu Kang | Hougang | 181 | 93 | 88 | 0.514 |
+| 152 | Greendale | Punggol | 210 | 106 | 104 | 0.505 |
+| 153 | Meridian | Pasir Ris | 222 | 105 | 117 | 0.473 |
+| 154 | Xinghua | Hougang | 181 | 85 | 96 | 0.470 |
+| 155 | Anchor Green | Sengkang | 240 | 108 | 132 | 0.450 |
+| 156 | Boon Lay Garden | Jurong West | 180 | 80 | 100 | 0.444 |
+| 157 | Teck Whye | Choa Chu Kang | 212 | 91 | 121 | 0.429 |
+| 158 | Cantonment | Bukit Merah | 150 | 63 | 87 | 0.420 |
+| 159 | Farrer Park | Kallang | 181 | 76 | 105 | 0.420 |
+| 160 | Blangah Rise | Bukit Merah | 121 | 50 | 71 | 0.413 |
+| 161 | Bendemeer | Kallang | 182 | 75 | 107 | 0.412 |
+| 162 | Pei Tong | Clementi | 322 | 132 | 190 | 0.410 |
+| 163 | Si Ling | Woodlands | 151 | 59 | 92 | 0.391 |
+| 164 | Yuhua | Jurong East | 240 | 92 | 148 | 0.383 |
+| 165 | St. Anthony’s Canossian | Bedok | 211 | 80 | 131 | 0.379 |
+| 166 | Marymount Convent | Toa Payoh | 240 | 89 | 151 | 0.371 |
+| 167 | Edgefield | Punggol | 241 | 89 | 152 | 0.369 |
+| 168 | Changkat | Tampines | 282 | 104 | 178 | 0.369 |
+| 169 | Seng Kang | Sengkang | 182 | 66 | 116 | 0.363 |
+| 170 | Gan Eng Seng | Bukit Merah | 151 | 52 | 99 | 0.344 |
+| 171 | Lianhua | Bukit Batok | 320 | 104 | 216 | 0.325 |
+| 172 | Yumin | Tampines | 281 | 90 | 191 | 0.320 |
+| 173 | Bedok Green | Bedok | 240 | 75 | 165 | 0.312 |
+| 174 | Ahmad Ibrahim | Yishun | 221 | 67 | 154 | 0.303 |
+| 175 | Montfort Junior | Hougang | 151 | 44 | 107 | 0.291 |
+| 176 | New Town | Queenstown | 210 | 53 | 157 | 0.252 |
+| 177 | First Toa Payoh | Toa Payoh | 181 | 40 | 141 | 0.221 |
+| 178 | Northoaks | Sembawang | 240 | 49 | 191 | 0.204 |
+| 179 | Zhonghua | Serangoon | 150 | 25 | 125 | 0.167 |
 
 
 ## 🗺️ 区域排名 (全部27个区域)
 
-以下是按超额率排序的所有区域，超额率 = 申请数 / 学位数
+以下是按热度排序的所有区域，区域热度计算公式为：
+**区域热度 = 申请数 / 学位数**
 
-| 排名 | 区域 | 学校数 | 学位数 | 报名数 | 剩余名额 | 特点分析 |
-|------|------|--------|--------|--------|----------|----------|
-| 1 | Bishan | 3 | 784 | 1039 | 0 | 竞争极其激烈、小型区域、学位供应有限、录取率中等 |
-| 2 | Marine Parade | 3 | 810 | 1019 | 0 | 竞争极其激烈、小型区域、学位供应有限、录取率中等 |
-| 3 | Bukit Timah | 6 | 1589 | 1954 | 37 | 竞争激烈、中型区域、学位供应适中、录取率中等 |
-| 4 | Novena | 3 | 674 | 855 | 0 | 竞争极其激烈、小型区域、学位供应有限、录取率中等 |
-| 5 | Serangoon | 5 | 884 | 1031 | 186 | 竞争激烈、中型区域、学位供应有限、录取率较低 |
-| 6 | Geylang | 5 | 1186 | 1396 | 41 | 竞争激烈、中型区域、学位供应适中、录取率较高 |
-| 7 | Yishun | 10 | 2335 | 2520 | 421 | 供需平衡、大型区域、学位供应充足、录取率中等 |
-| 8 | Bukit Batok | 6 | 1484 | 1663 | 334 | 竞争激烈、中型区域、学位供应适中、录取率较低 |
-| 9 | Choa Chu Kang | 7 | 1599 | 1730 | 316 | 供需平衡、中型区域、学位供应适中、录取率中等 |
-| 10 | Central | 3 | 678 | 755 | 0 | 竞争激烈、小型区域、学位供应有限、录取率较高 |
-| 11 | Tampines | 11 | 3014 | 3197 | 658 | 供需平衡、大型区域、学位供应充足、录取率中等 |
-| 12 | Punggol | 11 | 2727 | 2780 | 423 | 供需平衡、大型区域、学位供应充足、录取率较高 |
-| 13 | Jurong West | 11 | 2444 | 2406 | 506 | 学位充足、大型区域、学位供应充足、录取率较高 |
-| 14 | Ang Mo Kio | 6 | 1119 | 1112 | 225 | 学位充足、中型区域、学位供应适中、录取率较高 |
-| 15 | Hougang | 9 | 1891 | 1913 | 291 | 供需平衡、中型区域、学位供应适中、录取率较高 |
-| 16 | Toa Payoh | 8 | 1934 | 1972 | 381 | 供需平衡、中型区域、学位供应适中、录取率中等 |
-| 17 | Bedok | 10 | 2117 | 2117 | 549 | 供需平衡、大型区域、学位供应充足、录取率中等 |
-| 18 | Queenstown | 3 | 694 | 620 | 157 | 学位充足、小型区域、学位供应有限、录取率较高 |
-| 19 | Clementi | 4 | 1168 | 1159 | 335 | 学位充足、小型区域、学位供应适中、录取率中等 |
-| 20 | Bukit Panjang | 7 | 1298 | 1148 | 236 | 学位充足、中型区域、学位供应适中、录取率很高 |
-| 21 | Pasir Ris | 6 | 1093 | 991 | 242 | 学位充足、中型区域、学位供应适中、录取率较高 |
-| 22 | Sembawang | 5 | 1131 | 1019 | 297 | 学位充足、中型区域、学位供应适中、录取率较高 |
-| 23 | Woodlands | 12 | 2254 | 2059 | 348 | 学位充足、大型区域、学位供应充足、录取率很高 |
-| 24 | Sengkang | 12 | 2868 | 2739 | 688 | 学位充足、大型区域、学位供应充足、录取率中等 |
-| 25 | Kallang | 3 | 574 | 534 | 212 | 学位充足、小型区域、学位供应有限、录取率较低 |
-| 26 | Bukit Merah | 7 | 1161 | 952 | 336 | 学位充足、中型区域、学位供应适中、录取率较高 |
-| 27 | Jurong East | 3 | 682 | 437 | 309 | 学位充足、小型区域、学位供应有限、录取率较高 |
+| 排名 | 区域 | 学校数 | 学位数 | 报名数 | 剩余名额 | 热度 |
+|------|------|--------|--------|--------|----------|------|
+| 1 | Bishan | 3 | 784 | 908 | 0 | 1.158 |
+| 2 | Novena | 3 | 674 | 758 | 0 | 1.125 |
+| 3 | Marine Parade | 3 | 810 | 897 | 0 | 1.107 |
+| 4 | Geylang | 5 | 1186 | 1290 | 41 | 1.088 |
+| 5 | Bukit Timah | 6 | 1589 | 1707 | 37 | 1.074 |
+| 6 | Central | 3 | 678 | 724 | 0 | 1.068 |
+| 7 | Bukit Batok | 6 | 1484 | 1428 | 334 | 0.962 |
+| 8 | Serangoon | 5 | 884 | 839 | 186 | 0.949 |
+| 9 | Yishun | 10 | 2335 | 2194 | 421 | 0.940 |
+| 10 | Hougang | 9 | 1891 | 1768 | 291 | 0.935 |
+| 11 | Punggol | 11 | 2727 | 2542 | 423 | 0.932 |
+| 12 | Choa Chu Kang | 7 | 1599 | 1482 | 316 | 0.927 |
+| 13 | Tampines | 11 | 3014 | 2751 | 658 | 0.913 |
+| 14 | Toa Payoh | 8 | 1934 | 1723 | 381 | 0.891 |
+| 15 | Woodlands | 12 | 2254 | 1966 | 348 | 0.872 |
+| 16 | Jurong West | 11 | 2444 | 2101 | 506 | 0.860 |
+| 17 | Ang Mo Kio | 6 | 1119 | 950 | 225 | 0.849 |
+| 18 | Sengkang | 12 | 2868 | 2431 | 688 | 0.848 |
+| 19 | Pasir Ris | 6 | 1093 | 918 | 242 | 0.840 |
+| 20 | Sembawang | 5 | 1131 | 948 | 297 | 0.838 |
+| 21 | Clementi | 4 | 1168 | 975 | 335 | 0.835 |
+| 22 | Bukit Panjang | 7 | 1298 | 1079 | 236 | 0.831 |
+| 23 | Queenstown | 3 | 694 | 575 | 157 | 0.829 |
+| 24 | Bedok | 10 | 2117 | 1713 | 549 | 0.809 |
+| 25 | Kallang | 3 | 574 | 453 | 212 | 0.789 |
+| 26 | Bukit Merah | 7 | 1161 | 880 | 336 | 0.758 |
+| 27 | Jurong East | 3 | 682 | 373 | 309 | 0.547 |
 
 
 ## 📈 关键洞察
 
 ### 🔥 最热门学校 (TOP 10)
 
-1. **Princess Elizabeth** (Bukit Batok) - 热度: 2.007
-   - 学位数: 201, 录取数: 201, 剩余: 0, 未录取: 292
+1. **Princess Elizabeth** (Bukit Batok) - 热度: 1.950
+   - 学位数: 201, 录取数: 201, 剩余: 0, 未录取: 191
 
-2. **South View** (Choa Chu Kang) - 热度: 1.760
-   - 学位数: 271, 录取数: 271, 剩余: 0, 未录取: 245
+2. **Nan Chiau** (Sengkang) - 热度: 1.613
+   - 学位数: 300, 录取数: 300, 剩余: 0, 未录取: 184
 
-3. **Nan Hua** (Clementi) - 热度: 1.576
-   - 学位数: 242, 录取数: 242, 剩余: 0, 未录取: 185
+3. **Nan Hua** (Clementi) - 热度: 1.517
+   - 学位数: 242, 录取数: 242, 剩余: 0, 未录取: 125
 
-4. **Gongshang** (Tampines) - 热度: 1.535
-   - 学位数: 241, 录取数: 241, 剩余: 0, 未录取: 209
+4. **Hong Wen** (Kallang) - 热度: 1.431
+   - 学位数: 211, 录取数: 211, 剩余: 0, 未录取: 91
 
-5. **Pei Hwa Presbyterian** (Bukit Timah) - 热度: 1.527
-   - 学位数: 225, 录取数: 225, 剩余: 0, 未录取: 141
+5. **South View** (Choa Chu Kang) - 热度: 1.421
+   - 学位数: 271, 录取数: 271, 剩余: 0, 未录取: 114
 
-6. **Temasek** (Bedok) - 热度: 1.354
-   - 学位数: 201, 录取数: 201, 剩余: 0, 未录取: 131
+6. **Northland** (Yishun) - 热度: 1.419
+   - 学位数: 241, 录取数: 241, 剩余: 0, 未录取: 101
 
-7. **Chongfu** (Yishun) - 热度: 1.353
-   - 学位数: 300, 录取数: 300, 剩余: 0, 未录取: 139
+7. **Poi Ching** (Tampines) - 热度: 1.402
+   - 学位数: 281, 录取数: 281, 剩余: 0, 未录取: 113
 
-8. **Rosyth** (Serangoon) - 热度: 1.321
-   - 学位数: 272, 录取数: 272, 剩余: 0, 未录取: 135
+8. **Angsana** (Tampines) - 热度: 1.386
+   - 学位数: 280, 录取数: 280, 剩余: 0, 未录取: 108
 
-9. **Yangzheng** (Serangoon) - 热度: 1.313
-   - 学位数: 161, 录取数: 161, 剩余: 0, 未录取: 107
+9. **Rosyth** (Serangoon) - 热度: 1.331
+   - 学位数: 272, 录取数: 272, 剩余: 0, 未录取: 90
 
-10. **Tao Nan** (Marine Parade) - 热度: 1.301
-   - 学位数: 366, 录取数: 366, 剩余: 0, 未录取: 113
+10. **St. Hilda’s** (Tampines) - 热度: 1.329
+   - 学位数: 283, 录取数: 283, 剩余: 0, 未录取: 93
 
 ### 🏆 竞争最激烈区域 (TOP 5)
 
-1. **Bishan** - 竞争比率: 1.325
+1. **Bishan** - 竞争比率: 1.158
    - 学校数: 3, 学位数: 784, 录取数: 784
-   - 剩余名额: 0, 未录取数: 255
+   - 剩余名额: 0, 未录取数: 124
 
-2. **Marine Parade** - 竞争比率: 1.258
-   - 学校数: 3, 学位数: 810, 录取数: 810
-   - 剩余名额: 0, 未录取数: 209
-
-3. **Bukit Timah** - 竞争比率: 1.230
-   - 学校数: 6, 学位数: 1589, 录取数: 1552
-   - 剩余名额: 37, 未录取数: 365
-
-4. **Novena** - 竞争比率: 1.269
+2. **Novena** - 竞争比率: 1.125
    - 学校数: 3, 学位数: 674, 录取数: 674
-   - 剩余名额: 0, 未录取数: 181
+   - 剩余名额: 0, 未录取数: 84
 
-5. **Serangoon** - 竞争比率: 1.166
-   - 学校数: 5, 学位数: 884, 录取数: 698
-   - 剩余名额: 186, 未录取数: 147
+3. **Marine Parade** - 竞争比率: 1.107
+   - 学校数: 3, 学位数: 810, 录取数: 810
+   - 剩余名额: 0, 未录取数: 87
+
+4. **Geylang** - 竞争比率: 1.088
+   - 学校数: 5, 学位数: 1186, 录取数: 1145
+   - 剩余名额: 41, 未录取数: 104
+
+5. **Bukit Timah** - 竞争比率: 1.074
+   - 学校数: 6, 学位数: 1589, 录取数: 1552
+   - 剩余名额: 37, 未录取数: 118
 
 
 
@@ -311,7 +307,9 @@
 
 ### 指标定义
 
-- **热度**: 阶段权重综合竞争强度，考虑各报名阶段的竞争激烈程度和重要性，数值越高表示学校越热门难进
+- **热度**: 简化竞争度指标，公式为 申请数 / 学位数，数值越高表示学校或区域越热门难进
+- **申请数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.applied
+- **学位数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.taken + Phase2CS.vacancy
 - **剩余名额**: 学位数 - 录取数
 - **未录取数**: max(申请数 - 学位数, 0)
 - **竞争比率**: 申请数 / 学位数，反映区域竞争激烈程度
@@ -331,5 +329,5 @@
 
 ---
 
-*报告由 PrimaryRank 数据分析系统自动生成*  
-*生成时间: 2025-08-21 12:47:54*
+*报告由 PrimaryRank 数据分析系统自动生成*
+*生成时间: 2025-08-21 14:11:07*
