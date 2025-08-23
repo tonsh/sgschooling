@@ -79,10 +79,10 @@ class ReportGenerator:
 ## 🏫 学校热度排名 (全部179所学校)
 
 以下是按热度排序的所有学校，热度计算公式为：
-**热度 = 申请数 / 学位数**
+**热度 = 各阶段申请率之和 = Σ(phase.applied / phase.vacancy)**
 
 **申请数计算方式：**
-申请数 = Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.applied
+申请数 = Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.taken + Phase2Cs.applied
 
 | 排名 | 学校名称 | 区域 | 学位数 | 报名数 | 剩余名额 | 热度 |
 |------|----------|------|--------|--------|----------|------|
@@ -136,8 +136,8 @@ class ReportGenerator:
 
 ### 指标定义
 
-- **热度**: 简化竞争度指标，公式为 申请数 / 学位数，数值越高表示学校或区域越热门难进
-- **申请数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.applied
+- **热度**: 竞争度指标，公式为 各阶段申请率之和 Σ(phase.applied / phase.vacancy)，数值越高表示学校越热门难进
+- **申请数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.taken + Phase2Cs.applied
 - **学位数**: Phase1.taken + Phase2A.taken + Phase2B.taken + Phase2C.taken + Phase2CS.vacancy
 - **剩余名额**: 学位数 - 录取数
 - **未录取数**: max(申请数 - 学位数, 0)

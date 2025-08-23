@@ -38,10 +38,13 @@ class SchoolData:
     学校数据模型
 
     结构说明：
-    - name: 学校英文名称
-    - region: 所在区域
-    - vacancy: 学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.vacancy (自动计算)
-    - Phase1/2A/2B/2C/2Cs: 各阶段数据(Vacancy, Applied, Taken)
+    - name: 学校英文名称  
+    - region: 所在区域（使用show name格式）
+    - vacancy: 学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.taken + Phase3.vacancy (自动计算)
+    - Phase1/2A/2B/2C/2Cs/Phase3: 各阶段数据(Vacancy, Applied, Taken)
+    - rate: 热度 = applied / vacancy
+    - remaining: 剩余名额 = vacancy - taken  
+    - failed: 未报名成功 = max(applied - vacancy, 0)
     """
     name: str
     region: str
@@ -50,25 +53,27 @@ class SchoolData:
     phase_2b: PhaseData
     phase_2c: PhaseData
     phase_2cs: PhaseData
+    phase_3: PhaseData
 
     @property
     def vacancy(self) -> int:
-        """学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.vacancy"""
+        """学校总学位数 = Phase1.taken + 2A.taken + 2B.taken + 2C.taken + 2Cs.taken + Phase3.vacancy"""
         return (
             self.phase_1.taken + self.phase_2a.taken +
             self.phase_2b.taken + self.phase_2c.taken +
-            self.phase_2cs.vacancy
+            self.phase_2cs.taken + self.phase_3.vacancy
         )
 
     @property
     def applied(self) -> int:
-        """总申请数"""
+        """总申请数 = phase1.taken + 2a.taken + 2b.taken + 2c.taken + 2cs.applied"""
         return (self.phase_1.taken + self.phase_2a.taken +
-                self.phase_2b.taken + self.phase_2c.applied)
+                self.phase_2b.taken + self.phase_2c.taken +
+                self.phase_2cs.applied)
 
     @property
     def taken(self) -> int:
-        """总录取数"""
+        """总录取数 = phase1.taken + 2a.taken + 2b.taken + 2c.taken + 2cs.taken"""
         return (self.phase_1.taken + self.phase_2a.taken +
                 self.phase_2b.taken + self.phase_2c.taken +
                 self.phase_2cs.taken)
@@ -77,17 +82,41 @@ class SchoolData:
     def rate(self) -> float:
         """
         学校热度
-        热度 = 申请数 / 学位数
+        热度 = 各阶段申请率之和 = Σ(phase.applied / phase.vacancy)
         """
-        if self.vacancy == 0:
-            return 0.0
-
-        return self.applied * 1.0 / self.vacancy
+        total_rate = 0.0
+        
+        # Phase 1
+        if self.phase_1.vacancy > 0:
+            total_rate += self.phase_1.applied / self.phase_1.vacancy
+        
+        # Phase 2A
+        if self.phase_2a.vacancy > 0:
+            total_rate += self.phase_2a.applied / self.phase_2a.vacancy
+        
+        # Phase 2B
+        if self.phase_2b.vacancy > 0:
+            total_rate += self.phase_2b.applied / self.phase_2b.vacancy
+        
+        # Phase 2C
+        if self.phase_2c.vacancy > 0:
+            total_rate += self.phase_2c.applied / self.phase_2c.vacancy
+        
+        # Phase 2Cs
+        if self.phase_2cs.vacancy > 0:
+            total_rate += self.phase_2cs.applied / self.phase_2cs.vacancy
+        
+        # Phase 3
+        if self.phase_3.vacancy > 0:
+            total_rate += self.phase_3.applied / self.phase_3.vacancy
+        
+        return total_rate
 
     @property
     def remaining(self) -> int:
         """剩余名额 = 总学位数 - 总录取数"""
-        return self.vacancy - self.taken
+        assert self.vacancy - self.taken == self.phase_3.vacancy, "剩余名额计算错误"
+        return self.phase_3.vacancy
 
     @property
     def failed(self) -> int:
@@ -110,7 +139,8 @@ class SchoolData:
             "phase_2a": self.phase_2a.to_dict(),
             "phase_2b": self.phase_2b.to_dict(),
             "phase_2c": self.phase_2c.to_dict(),
-            "phase_2cs": self.phase_2cs.to_dict()
+            "phase_2cs": self.phase_2cs.to_dict(),
+            "phase_3": self.phase_3.to_dict()
         }
 
     @classmethod
@@ -123,8 +153,10 @@ class SchoolData:
             phase_2a=PhaseData.from_dict(data.get("phase_2a", {})),
             phase_2b=PhaseData.from_dict(data.get("phase_2b", {})),
             phase_2c=PhaseData.from_dict(data.get("phase_2c", {})),
-            phase_2cs=PhaseData.from_dict(data.get("phase_2cs", {}))
+            phase_2cs=PhaseData.from_dict(data.get("phase_2cs", {})),
+            phase_3=PhaseData.from_dict(data.get("phase_3", {}))
         )
+
 
     @classmethod
     def rank_list(cls, schools: List['SchoolData']) -> List['SchoolData']:
