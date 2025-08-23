@@ -65,7 +65,8 @@ class DataAnalyzer:
                             phase_2a=PhaseData.from_dict(school_data.get("phase_2a", {})),
                             phase_2b=PhaseData.from_dict(school_data.get("phase_2b", {})),
                             phase_2c=PhaseData.from_dict(school_data.get("phase_2c", {})),
-                            phase_2cs=PhaseData.from_dict(school_data.get("phase_2cs", {}))
+                            phase_2cs=PhaseData.from_dict(school_data.get("phase_2cs", {})),
+                            phase_3=PhaseData.from_dict(school_data.get("phase_3", {}))
                         )
                         all_schools.append(school)
                     except Exception as e:

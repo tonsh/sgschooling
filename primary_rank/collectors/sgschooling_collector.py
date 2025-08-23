@@ -170,9 +170,12 @@ class SGSchoolingCollector:
             # 提取学校数据
             schools = await self._extract_schools_from_table(region, region_url)
 
+            # 转换区域名称为 show name 格式
+            show_name = region.replace('-', ' ').title()
+
             # 创建区域数据对象 - 使用from_schools方法
             region_data = RegionData.from_schools(
-                name=region,
+                name=show_name,
                 schools=schools
             )
 
@@ -224,39 +227,39 @@ class SGSchoolingCollector:
 
                     # 提取4行数据：学校名 + Vacancy + Applied + Taken
                     school_row_data = []
-                    for phase_idx in range(5):  # 5个阶段：Phase1, 2A, 2B, 2C, 2CS
+                    for phase_idx in range(6):  # 6个阶段：Phase1, 2A, 2B, 2C, 2CS, Phase3
                         school_row_data.append(await cells[phase_idx + 1].inner_text() if phase_idx + 1 < len(cells) else "0")
 
                     # 获取Vacancy行（i+1）
                     if i + 1 < len(rows):
                         vacancy_cells = await rows[i + 1].locator("td").all()
                         vacancy_row_data = []
-                        for phase_idx in range(5):
+                        for phase_idx in range(6):
                             vacancy_row_data.append(await vacancy_cells[phase_idx + 1].inner_text() if phase_idx + 1 < len(vacancy_cells) else "0")
                     else:
-                        vacancy_row_data = ["0"] * 5
+                        vacancy_row_data = ["0"] * 6
 
                     # 获取Applied行（i+2）
                     if i + 2 < len(rows):
                         applied_cells = await rows[i + 2].locator("td").all()
                         applied_row_data = []
-                        for phase_idx in range(5):
+                        for phase_idx in range(6):
                             applied_row_data.append(await applied_cells[phase_idx + 1].inner_text() if phase_idx + 1 < len(applied_cells) else "0")
                     else:
-                        applied_row_data = ["0"] * 5
+                        applied_row_data = ["0"] * 6
 
                     # 获取Taken行（i+3）
                     if i + 3 < len(rows):
                         taken_cells = await rows[i + 3].locator("td").all()
                         taken_row_data = []
-                        for phase_idx in range(5):
+                        for phase_idx in range(6):
                             taken_row_data.append(await taken_cells[phase_idx + 1].inner_text() if phase_idx + 1 < len(taken_cells) else "0")
                     else:
-                        taken_row_data = ["0"] * 5
+                        taken_row_data = ["0"] * 6
 
                     # 解析各阶段数据
                     phases_data = []
-                    for phase_idx in range(5):
+                    for phase_idx in range(6):
                         # 从各行中提取该阶段的数据
                         vacancy = self._parse_number(vacancy_row_data[phase_idx])
                         applied = self._parse_number(applied_row_data[phase_idx])
@@ -268,15 +271,16 @@ class SGSchoolingCollector:
                             taken=taken
                         ))
 
-                    # 创建学校数据对象
+                    # 创建学校数据对象，使用 show name 格式的区域名
                     school = SchoolData(
                         name=school_name,
-                        region=region,
+                        region=region.replace('-', ' ').title(),
                         phase_1=phases_data[0],
                         phase_2a=phases_data[1],
                         phase_2b=phases_data[2],
                         phase_2c=phases_data[3],
-                        phase_2cs=phases_data[4]
+                        phase_2cs=phases_data[4],
+                        phase_3=phases_data[5]
                     )
 
                     schools.append(school)
@@ -405,10 +409,7 @@ class SGSchoolingCollector:
             }
         }
 
-        # 格式化区域名称
-        region_json_data["region"]["name"] = region_data.name.replace("-", " ").title()
-        for school in region_json_data["schools"]:
-            school["region"] = school["region"].replace("-", " ").title()
+        # 区域名称已经是 show name 格式，无需再次转换
 
         # 保存数据
         with open(file_path, 'w', encoding='utf-8') as f:

@@ -15,9 +15,15 @@ class RegionData:
     区域数据模型
 
     结构说明：
-    - name: 区域英文名称
+    - name: 区域名称（使用show name格式：region_name.replace('-', ' ').title()）
     - schools: 该区域的学校列表
-    其他属性均从学校列表计算得出
+    - school_num: 该区域学校数量
+    - vacancy: 该区域所有学校的总学位数量
+    - applied: 该区域所有学校的总报名数量
+    - taken: 该区域所有学校的总录取数量
+    - remaining: 剩余名额 = vacancy - taken
+    - failed: 未报名成功人数 = max(applied - vacancy, 0)
+    - rate: 申请率 = applied / vacancy
     """
     name: str
     schools: List[SchoolData] = field(default_factory=list)
@@ -81,6 +87,7 @@ class RegionData:
     def to_dict(self) -> Dict[str, Any]:
         """转换为字典格式"""
         return {
+            "name": self.name,
             "region": self.name,  # 保持与原有接口兼容
             "school_num": self.school_num,
             "vacancy": self.vacancy,
