@@ -1,6 +1,6 @@
 """
-CC 模块主程序
-负责 Community Club 数据的采集
+OnePA 数据采集模块主程序
+负责 Community Club (CC) 和 Residents' Committee (RC) 数据的采集
 """
 
 import asyncio
@@ -13,38 +13,55 @@ sys.path.append(str(Path(__file__).parent.parent))
 from cc.collectors.onepa_collector import OnePACollector
 
 
-async def collect_cc_data():
-    """采集 Community Club 数据"""
-    print("开始采集 Community Club 数据...")
+async def collect_data(url: str):
+    """通用数据采集方法"""
+    data_type = "Community Club" if "/cc" in url else "Residents' Committee"
+    print(f"开始采集 {data_type} 数据...")
 
-    async with OnePACollector() as collector:
-        # 采集所有 CC 数据
-        cc_list = await collector.collect_all_cc_data()
+    async with OnePACollector(url) as collector:
+        # 采集所有数据（自动检测类型）
+        data_list = await collector.collect_all_data()
 
-        if cc_list:
-            # 保存原始数据
-            await collector.save_cc_data(cc_list)
+        if data_list:
+            # 保存原始数据（自动选择目录）
+            await collector.save_data(data_list)
 
-            print(f"数据采集完成，共采集到 {len(cc_list)} 个 Community Club")
+            print(f"{data_type} 数据采集完成，共采集到 {len(data_list)} 个 {data_type}")
             return True
         else:
-            print("数据采集失败")
+            print(f"{data_type} 数据采集失败")
             return False
 
 
 async def main():
     """主程序"""
-    print("=== 新加坡 Community Club 数据采集系统 ===")
+    print("=== 新加坡 OnePA 数据采集系统 ===")
 
-    # 直接进行数据采集
-    success = await collect_cc_data()
+    # 采集 CC 数据
+    print("\n1. 采集 Community Club 数据")
+    cc_success = await collect_data("https://www.onepa.gov.sg/cc")
 
-    if success:
-        print("=== 数据采集完成 ===")
+    # 采集 RC 数据
+    print("\n2. 采集 Residents' Committee 数据")
+    rc_success = await collect_data("https://www.onepa.gov.sg/rc")
+
+    # 输出结果
+    print("\n=== 采集结果汇总 ===")
+    if cc_success:
+        print("✅ Community Club 数据采集成功")
     else:
-        print("=== 数据采集失败 ===")
+        print("❌ Community Club 数据采集失败")
+
+    if rc_success:
+        print("✅ Residents' Committee 数据采集成功")
+    else:
+        print("❌ Residents' Committee 数据采集失败")
+
+    if cc_success and rc_success:
+        print("\n🎉 所有数据采集完成！")
+    else:
+        print("\n⚠️  部分数据采集失败，请检查日志")
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-

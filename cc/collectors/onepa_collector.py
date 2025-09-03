@@ -1,6 +1,6 @@
 """
-OnePA 网站 Community Club 数据采集器   
-负责从 onepa.gov.sg/cc 采集新加坡 Community Club 数据	
+OnePA 网站 Community Club 数据采集器
+负责从 onepa.gov.sg/cc 采集新加坡 Community Club 数据
 """
 
 import asyncio
@@ -8,8 +8,7 @@ import json
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Dict, Any
-from urllib.parse import urljoin, urlparse
+from typing import List, Optional
 
 from playwright.async_api import async_playwright, Page, Browser
 from ..models.cc_data import CCData
@@ -25,18 +24,34 @@ class OnePACollector:
 
     BASE_URL = "https://www.onepa.gov.sg"
     CC_PATH = "/cc"
-    API_PATH = "/pacesapi/catalogs/outlets"
+    RC_PATH = "/rc"
 
-    def __init__(self, data_dir: str = "data"):
+    def __init__(self, url: str, data_dir: str = "data"):
+        self.url = url
         self.data_dir = Path(data_dir)
         self.browser: Optional[Browser] = None
         self.page: Optional[Page] = None
-
+        
+        # 根据 URL 自动判断数据类型
+        self.data_type = self._detect_data_type(url)
+        
         # 确保数据目录存在
         self.data_dir.mkdir(exist_ok=True)
         (self.data_dir / "cc" / "raw").mkdir(parents=True, exist_ok=True)
         (self.data_dir / "cc" / "processed").mkdir(parents=True, exist_ok=True)
         (self.data_dir / "cc" / "logs").mkdir(parents=True, exist_ok=True)
+        (self.data_dir / "rc" / "raw").mkdir(parents=True, exist_ok=True)
+        (self.data_dir / "rc" / "processed").mkdir(parents=True, exist_ok=True)
+        (self.data_dir / "rc" / "logs").mkdir(parents=True, exist_ok=True)
+
+    def _detect_data_type(self, url: str) -> str:
+        """根据 URL 自动检测数据类型"""
+        if "/cc" in url:
+            return "cc"
+        elif "/rc" in url:
+            return "rc"
+        else:
+            return "unknown"
 
     async def __aenter__(self):
         """异步上下文管理器入口"""
@@ -46,6 +61,7 @@ class OnePACollector:
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """异步上下文管理器出口"""
         await self.close_browser()
+        return False
 
     async def start_browser(self) -> None:
         """启动浏览器"""
@@ -91,235 +107,100 @@ class OnePACollector:
 
     async def collect_all_cc_data(self) -> List[CCData]:
         """
-        采集所有 Community Club 数据
+        通用数据采集方法，兼容原接口
 
         Returns:
-            CC 数据列表
+            数据列表
+        """
+        return await self.collect_all_data()
+
+    async def collect_all_data(self) -> List[CCData]:
+        """
+        通用数据采集方法，根据 URL 自动识别数据类型
+
+        Returns:
+            数据列表
         """
         if not self.page:
             raise RuntimeError("浏览器未启动，请先调用 start_browser()")
 
-        cc_url = self.BASE_URL + self.CC_PATH
-        print(f"正在访问 OnePA CC 页面: {cc_url}")
+        data_type_name = "Community Club" if self.data_type == "cc" else "Residents' Committee"
+        print(f"正在访问 OnePA {data_type_name} 页面: {self.url}")
 
         try:
-            # 访问 CC 页面
-            await self.page.goto(cc_url, wait_until="domcontentloaded")
+            # 访问页面
+            await self.page.goto(self.url, wait_until="domcontentloaded")
 
             # 等待页面加载完成
             await self.page.wait_for_load_state("networkidle", timeout=30000)
 
-            # 尝试通过 API 获取数据
-            cc_data_list = await self._collect_cc_via_api()
+            # 直接使用页面解析方式采集数据
+            data_list = await self._collect_via_page_parsing()
 
-            if not cc_data_list:
-                # 如果 API 方式失败，尝试页面解析
-                print("API 方式失败，尝试页面解析...")
-                cc_data_list = await self._collect_cc_via_page_parsing()
-
-            print(f"成功采集到 {len(cc_data_list)} 个 Community Club")
-            return cc_data_list
+            print(f"成功采集到 {len(data_list)} 个 {data_type_name}")
+            return data_list
 
         except Exception as e:
-            print(f"采集 CC 数据失败: {e}")
+            print(f"采集 {data_type_name} 数据失败: {e}")
             return []
 
-    async def _collect_cc_via_api(self) -> List[CCData]:
-        """通过 API 接口采集 CC 数据"""
+    async def _collect_via_page_parsing(self) -> List[CCData]:
+        """通用页面解析方法，支持 CC 和 RC 数据采集"""
         try:
-            # 监听网络请求，寻找 API 调用
-            api_responses = []
+            all_data_list = []
+            data_type_name = "CC" if self.data_type == "cc" else "RC"
 
-            def handle_response(response):
-                if self.API_PATH in response.url and "OutletType=CC" in response.url:
-                    print(f"捕获到 API 请求: {response.url}")
-                    api_responses.append(response)
-
-            self.page.on("response", handle_response)
-
-            # 尝试触发页面的 API 调用
+            # 等待列表加载，尝试不同的选择器
             try:
-                # 等待页面完全加载
-                await self.page.wait_for_load_state("networkidle", timeout=10000)
-
-                # 查找并点击可能触发 API 调用的元素
-                search_elements = await self.page.locator("input, button, .search").all()
-                if search_elements:
-                    # 尝试触发搜索或加载
-                    await search_elements[0].click()
-                    await asyncio.sleep(2)
-
-            except Exception as e:
-                print(f"触发页面 API 调用失败: {e}")
-
-            # 等待网络请求完成
-            await asyncio.sleep(5)
-
-            # 检查捕获的网络请求
-            if api_responses:
-                print(f"发现 {len(api_responses)} 个 API 响应")
-                for api_response in api_responses:
-                    try:
-                        response_data = await api_response.json()
-                        print(f"API 响应状态: {api_response.status}")
-                        result = self._parse_api_response(response_data)
-                        if result:
-                            return result
-                    except Exception as e:
-                        print(f"解析 API 响应失败: {e}")
-
-            # 尝试直接调用 API
-            api_url = f"{self.BASE_URL}{self.API_PATH}?outletMode=location&OutletType=CC"
-            print(f"尝试直接访问 API: {api_url}")
-
-            try:
-                # 使用页面的 fetch API
-                response = await self.page.evaluate(f"""
-                    async () => {{
-                        try {{
-                            const response = await fetch('{api_url}');
-                            if (response.ok) {{
-                                return await response.json();
-                            }} else {{
-                                return {{ error: 'HTTP ' + response.status }};
-                            }}
-                        }} catch (error) {{
-                            return {{ error: error.message }};
-                        }}
-                    }}
-                """)
-
-                if response and isinstance(response, dict) and 'error' not in response:
-                    return self._parse_api_response(response)
-                else:
-                    print(f"API 调用返回错误: {response}")
-
-            except Exception as e:
-                print(f"直接 API 调用失败: {e}")
-
-            return []
-
-        except Exception as e:
-            print(f"API 采集失败: {e}")
-            return []
-
-    def _parse_api_response(self, response_data: Dict[str, Any]) -> List[CCData]:
-        """解析 API 响应数据"""
-        cc_list = []
-
-        try:
-            # API 响应可能包含不同的数据结构，需要适应性解析
-            outlets = []
-            if isinstance(response_data, dict):
-                # 尝试不同的键名
-                for key in ['outlets', 'data', 'results', 'items']:
-                    if key in response_data:
-                        outlets = response_data[key]
-                        break
-
-                # 如果直接是列表
-                if not outlets and isinstance(response_data, list):
-                    outlets = response_data
-
-            for outlet in outlets:
-                if isinstance(outlet, dict):
-                    cc_data = self._extract_cc_data_from_dict(outlet)
-                    if cc_data:
-                        cc_list.append(cc_data)
-
-        except Exception as e:
-            print(f"解析 API 数据失败: {e}")
-
-        return cc_list
-
-    def _extract_cc_data_from_dict(self, outlet_dict: Dict[str, Any]) -> Optional[CCData]:
-        """从字典数据中提取 CC 信息"""
-        try:
-            # 提取名称
-            name = ""
-            for name_key in ['name', 'title', 'outlet_name', 'cc_name']:
-                if name_key in outlet_dict:
-                    name = str(outlet_dict[name_key]).strip()
-                    break
-
-            # 提取地址
-            address = ""
-            for addr_key in ['address', 'full_address', 'street_address']:
-                if addr_key in outlet_dict:
-                    address = str(outlet_dict[addr_key]).strip()
-                    break
-
-            # 提取邮政编码
-            postcode = ""
-            for pc_key in ['postcode', 'postal_code', 'zip']:
-                if pc_key in outlet_dict:
-                    postcode = str(outlet_dict[pc_key]).strip()
-                    break
-
-            # 如果地址中包含邮政编码，提取出来
-            if not postcode and address:
-                postcode_match = re.search(r'\b(\d{6})\b', address)
-                if postcode_match:
-                    postcode = postcode_match.group(1)
-
-            if name and address:
-                return CCData(
-                    name=name,
-                    address=address,
-                    postcode=postcode,
-                    url=""  # API方式暂时无法获取URL
-                )
-
-        except Exception as e:
-            print(f"提取 CC 数据失败: {e}")
-
-        return None
-
-    async def _collect_cc_via_page_parsing(self) -> List[CCData]:
-        """通过页面解析采集 CC 数据（支持分页）"""
-        try:
-            all_cc_list = []
-
-            # 等待CC列表加载
-            await self.page.wait_for_selector(".ccLocatorlist__left__results", timeout=15000)
+                await self.page.wait_for_selector(".ccLocatorlist__left__results", timeout=15000)
+                results_selector = ".ccLocatorlist__left__results"
+            except:
+                try:
+                    # 尝试其他可能的选择器
+                    await self.page.wait_for_selector(".rcLocatorlist__left__results", timeout=15000)
+                    results_selector = ".rcLocatorlist__left__results"
+                except:
+                    # 尝试通用选择器
+                    await self.page.wait_for_selector("[class*='results'], .results", timeout=15000)
+                    results_selector = "[class*='results']"
 
             # 使用下一页按钮遍历所有页面
             page_num = 1
-            print("开始逐页采集CC数据...")
+            print(f"开始逐页采集{data_type_name}数据...")
 
             while True:
                 print(f"正在采集第 {page_num} 页...")
 
-                # 等待当前页面的CC列表加载
+                # 等待当前页面的列表加载
                 await self.page.wait_for_timeout(1000)
 
-                # 获取当前页的CC数据
-                cc_elements = self.page.locator(".ccLocatorlist__left__results > *")
-                current_page_count = await cc_elements.count()
-                print(f"第 {page_num} 页找到 {current_page_count} 个CC")
+                # 获取当前页的数据
+                elements = self.page.locator(f"{results_selector} > *")
+                current_page_count = await elements.count()
+                print(f"第 {page_num} 页找到 {current_page_count} 个{data_type_name}")
 
                 if current_page_count == 0:
-                    print("当前页无CC数据，停止采集")
+                    print(f"当前页无{data_type_name}数据，停止采集")
                     break
 
-                # 解析当前页的CC数据
+                # 解析当前页的数据
                 for i in range(current_page_count):
                     try:
-                        element = cc_elements.nth(i)
+                        element = elements.nth(i)
                         text = await element.inner_text()
                         
-                        # 获取CC链接
-                        cc_link = await element.locator('a').first.get_attribute('href')
-                        if cc_link and not cc_link.startswith('http'):
-                            cc_link = self.BASE_URL + cc_link
+                        # 获取链接
+                        link = await element.locator('a').first.get_attribute('href')
+                        if link and not link.startswith('http'):
+                            link = self.BASE_URL + link
 
-                        # 解析CC信息
-                        cc_data = self._parse_cc_text_with_url(text, cc_link or "")
-                        if cc_data:
-                            all_cc_list.append(cc_data)
+                        # 解析信息
+                        data = self._parse_cc_text_with_url(text, link or "")
+                        if data:
+                            all_data_list.append(data)
 
                     except Exception as e:
-                        print(f"解析第 {page_num} 页CC元素 {i} 失败: {e}")
+                        print(f"解析第 {page_num} 页{data_type_name}元素 {i} 失败: {e}")
                         continue
 
                 # 检查是否有下一页
@@ -341,12 +222,15 @@ class OnePACollector:
                     print("未找到下一页按钮，停止采集")
                     break
 
-            print(f"总共采集到 {len(all_cc_list)} 个Community Club")
-            return all_cc_list
+            print(f"总共采集到 {len(all_data_list)} 个{data_type_name}")
+            return all_data_list
 
         except Exception as e:
-            print(f"页面解析采集失败: {e}")
+            print(f"{data_type_name}页面解析采集失败: {e}")
             return []
+
+
+
 
     def _parse_cc_text(self, text: str) -> Optional[CCData]:
         """解析CC文本信息"""
@@ -451,50 +335,64 @@ class OnePACollector:
 
             # 从URL中提取路径的最后一段
             url_path = url.rstrip('/').split('/')[-1]
-            
+
             # 将CC名称转换为URL格式：小写并用连字符替换空格
             expected_url_part = cc_name.lower().replace(' ', '-')
-            
+
             # 验证URL路径是否匹配
             is_valid = url_path == expected_url_part
-            
+
             if not is_valid:
                 print(f"URL验证: '{cc_name}' -> 期望: '{expected_url_part}', 实际: '{url_path}'")
-                
+
             return is_valid
 
         except Exception as e:
             print(f"URL验证失败: {e}")
             return False
 
-    async def save_cc_data(self, cc_list: List[CCData]) -> str:
-        """保存 CC 数据到文件"""
+    async def save_cc_data(self, data_list: List[CCData]) -> str:
+        """保存数据到文件（兼容原接口）"""
+        return await self.save_data(data_list)
+
+    async def save_data(self, data_list: List[CCData]) -> str:
+        """通用数据保存方法，根据数据类型自动选择目录和文件名"""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        file_path = self.data_dir / "cc" / "raw" / f"community_clubs_{timestamp}.json"
+        
+        if self.data_type == "cc":
+            file_path = self.data_dir / "cc" / "raw" / f"community_clubs_{timestamp}.json"
+            latest_path = self.data_dir / "cc" / "raw" / "latest_community_clubs.json"
+            data_key = "community_clubs"
+            data_type_name = "CC"
+        elif self.data_type == "rc":
+            file_path = self.data_dir / "rc" / "raw" / f"residents_committees_{timestamp}.json"
+            latest_path = self.data_dir / "rc" / "raw" / "latest_residents_committees.json"
+            data_key = "residents_committees"
+            data_type_name = "RC"
+        else:
+            raise ValueError(f"未知的数据类型: {self.data_type}")
 
         # 确保目录存在
         file_path.parent.mkdir(parents=True, exist_ok=True)
 
         # 构建数据格式
-        cc_json_data = {
-            "community_clubs": [cc.to_dict() for cc in cc_list],
+        json_data = {
+            data_key: [item.to_dict() for item in data_list],
             "metadata": {
-                "total_count": len(cc_list),
+                "total_count": len(data_list),
                 "crawl_time": datetime.now().isoformat(),
-                "source_url": f"{self.BASE_URL}{self.CC_PATH}",
+                "source_url": self.url,
                 "data_version": "1.0"
             }
         }
 
         # 保存数据
         with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(cc_json_data, f, ensure_ascii=False, indent=2)
+            json.dump(json_data, f, ensure_ascii=False, indent=2)
 
         # 同时保存最新的数据
-        latest_path = self.data_dir / "cc" / "raw" / "latest_community_clubs.json"
         with open(latest_path, 'w', encoding='utf-8') as f:
-            json.dump(cc_json_data, f, ensure_ascii=False, indent=2)
+            json.dump(json_data, f, ensure_ascii=False, indent=2)
 
-        print(f"CC 数据已保存到: {file_path}")
+        print(f"{data_type_name} 数据已保存到: {file_path}")
         return str(file_path)
-
