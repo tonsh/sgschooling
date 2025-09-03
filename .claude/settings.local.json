@@ -1,15 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(source:*)",
-      "Bash(flake8:*)",
-      "Bash(python:*)",
-      "Bash(rm:*)",
-      "Bash(npm install:*)",
-      "Bash(playwright install:*)",
-      "Bash(pip install:*)",
-      "Bash(mkdir:*)"
+      "Bash(/Users/tonsh/projs/sgschooling/.claude/hooks/normalize_file.sh:*)"
     ],
     "deny": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "type": "command",
+        "command": "jq -r '.tool_input.file_path' | xargs -I{} $CLAUDE_PROJECT_DIR/.claude/hooks/normalize_code.sh {}"
+      }
+    ]
   }
 }

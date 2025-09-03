@@ -10,11 +10,17 @@ PrimaryRank 是一个分析新加坡小学报名数据的项目，通过分析 h
 
 ## 项目目标
 
+### 主项目目标（小学报名数据分析）
 - 从 https://sgschooling.com/year/2025/ 抓取新加坡政府小学2025年报名数据
 - 统计学校热度排名，生成学校热度排名表格
 - 统计区域热度排名，生成区域排名表格
 - 为家长择校提供有价值的参数依据
 - 提供数据校验功能，确保抓取数据准确性
+
+### CC 模块目标（Community Club 数据采集）
+- 从 https://www.onepa.gov.sg/cc 采集新加坡所有 Community Club 数据
+- 提供简单清洁的 CC 基础数据（名称、地址、邮政编码、区域）
+- 为其他分析提供数据源支持
 
 ## 开发环境
 
@@ -24,7 +30,9 @@ PrimaryRank 是一个分析新加坡小学报名数据的项目，通过分析 h
 
 ## 数据结构定义
 
-### SchoolData 学校数据结构
+### 主项目数据结构
+
+#### SchoolData 学校数据结构
 ```
 SchoolData(
     name: str,              # 学校英文名称
@@ -46,7 +54,7 @@ SchoolData(
 - `SchoolData.remaining = SchoolData.vacancy - SchoolData.taken`（剩余名额）
 - `SchoolData.failed = max(SchoolData.applied - SchoolData.vacancy, 0)`（未报名成功人数）
 
-### RegionData 区域数据结构
+#### RegionData 区域数据结构
 ```
 RegionData(
     name: str,              # 区域名称（使用show name格式：region_name.replace('-', ' ').title()）
@@ -62,9 +70,28 @@ RegionData(
 - `RegionData.failed = max(RegionData.applied - RegionData.vacancy, 0)`（未报名成功人数）
 - `RegionData.rate = RegionData.applied / RegionData.vacancy`（申请率）
 
+### CC 模块数据结构
+
+#### CCData Community Club 数据结构
+```
+CCData(
+    name: str,        # CC 名称
+    address: str,     # 完整地址
+    postcode: str,    # 邮政编码
+    url: str          # CC 详情页面链接
+)
+```
+
+**URL验证规则**：采集器会验证 `url.split('/')[-1] == name.lower().replace(' ', '-')`
+
+
 ## 数据存储格式
 
+### 主项目存储
 原始数据按以上数据结构保存为 JSON 格式到 `/data/raw/regions/` 目录下，每个区域一个 JSON 文件。
+
+### CC 模块存储
+- **原始数据**: `/data/cc/raw/community_clubs.json` - 简单的 CC 数据列表
 
 ## 统计分析流程要求
 
@@ -94,6 +121,19 @@ RegionData(
 5. 遵守数据使用相关法规
 6. 区域名称统一使用 show name 格式（region_name.replace('-', ' ').title()）
 
+## 项目模块结构
+
+### 主项目（根目录）
+负责新加坡小学报名数据的采集和分析，核心功能和主要业务逻辑。
+
+### CC 模块（cc/ 目录）
+独立的 Community Club 数据采集子系统：
+- **目的**: 采集新加坡所有 Community Club 的基础数据
+- **数据源**: https://www.onepa.gov.sg/cc
+- **功能**: 纯数据采集，输出 JSON 格式的 CC 列表
+- **架构**: 轻量级采集器，专注数据获取
+- **输出**: CC 名称、地址、邮政编码、区域的结构化数据
+
 ## 重要说明
 
 - 你必须用中文在聊天中回复。
@@ -103,5 +143,6 @@ RegionData(
 - 每次有重大改动时生成或更新相应文档
 - 所有的文档需放在 docs/ 目录下
 - 所有的单元测试相关文件或目录需放在 tests/ 目录下
+- CC 模块是合法的功能模块，具有独立的数据采集和分析价值
 - 去除行尾空格
 - 文件末尾有且仅有一个空行
